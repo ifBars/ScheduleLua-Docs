@@ -26,7 +26,6 @@ Example:
 ```lua
 function Initialize()
     Log("Script initialized!")
-    return true
 end
 
 function Shutdown()
@@ -217,8 +216,6 @@ function Initialize()
     PlayerModule.Initialize()
     ShopModule.Initialize(PlayerModule) -- Shop needs Player
     UIModule.Initialize(PlayerModule, ShopModule) -- UI needs both
-    
-    return true
 end
 
 -- Example shop module with dependency injection
@@ -553,13 +550,12 @@ function Update()
             AnalyzePlayerInventory()
         end
     end
-}
+end
 
 -- Even better: Use event-based approach with Wait()
 function Initialize()
     -- Schedule periodic checks instead of using Update
     Wait(5.0, PeriodicInventoryCheck)
-    return true
 end
 
 function PeriodicInventoryCheck()
@@ -580,8 +576,7 @@ function Initialize()
     Log("Player tracking initialized!")
     -- Start periodic position check using Wait
     StartPlayerTracking()
-    return true
-}
+end
 
 function StartPlayerTracking()
     -- Check player position every 3 seconds instead of every frame
@@ -598,7 +593,7 @@ function StartPlayerTracking()
         -- Schedule next check
         StartPlayerTracking()
     end)
-}
+end
 ```
 
 ### Cache Results When Possible
@@ -621,13 +616,12 @@ function UpdateDataCache()
     
     -- Schedule next cache update in 5 seconds
     Wait(5.0, UpdateDataCache)
-}
+end
 
 function Initialize()
     -- Initialize the data cache
     UpdateDataCache()
-    return true
-}
+end
 
 -- Now use cached data in Update if needed
 function Update()
@@ -636,7 +630,7 @@ function Update()
     for _, npc in pairs(cachedData.npcsInRegion) do
         -- Process NPCs
     end
-}
+end
 ```
 
 ## Event Handling
@@ -652,8 +646,7 @@ ScheduleLua provides a powerful event system with predefined lifecycle hooks tha
 function Initialize()
     Log("My script initialized!")
     -- Do initial setup that doesn't require loaded game systems
-    return true  -- Return true to indicate successful initialization
-}
+end
 
 -- Called when the player entity is fully loaded and ready
 function OnPlayerReady()
@@ -670,7 +663,7 @@ function OnPlayerReady()
     
     -- Setup player-dependent functionality
     StartPlayerMonitoring()
-}
+end
 
 -- Called when the console is fully loaded and ready for commands
 function OnConsoleReady()
@@ -696,7 +689,7 @@ function OnConsoleReady()
     )
     
     Log("Custom commands registered")
-}
+end
 
 -- Called when a scene is loaded
 function OnSceneLoaded(sceneName)
@@ -708,7 +701,7 @@ function OnSceneLoaded(sceneName)
     elseif sceneName == "Main" then
         -- Handle main/game scene
     end
-}
+end
 
 -- Called when the game day changes
 function OnDayChanged(day)
@@ -719,7 +712,7 @@ function OnDayChanged(day)
         Log("It's the start of a new week!")
         -- Weekly reset logic
     end
-}
+end
 
 -- Called when the game time changes significantly
 function OnTimeChanged(time)
@@ -732,7 +725,7 @@ function OnTimeChanged(time)
             Log("It's night time!")
         end
     end
-}
+end
 
 -- Called when player health changes
 function OnPlayerHealthChanged(newHealth)
@@ -743,7 +736,7 @@ function OnPlayerHealthChanged(newHealth)
         Log("Player health is low!")
         -- Maybe play a heartbeat sound or show a warning
     end
-}
+end
 
 -- Called when player energy changes
 function OnPlayerEnergyChanged(newEnergy)
@@ -754,7 +747,7 @@ function OnPlayerEnergyChanged(newEnergy)
         Log("Player energy is low!")
         -- Maybe show a warning UI element
     end
-}
+end
 
 -- Called when the script is unloaded (cleanup)
 function Shutdown()
@@ -764,7 +757,7 @@ function Shutdown()
     
     -- Clean up any resources
     Log("Script shutting down, cleaning up resources")
-}
+end
 ```
 
 ### Best Practices for Event Hooks
@@ -794,7 +787,6 @@ Understanding when to use each event hook will make your scripts more reliable.
    - Release resources
    - Remove event listeners
    - Clean up UI elements
-```
 
 ## UI Considerations
 
@@ -933,7 +925,7 @@ function CreateUI()
     mainUI.initialized = true
     
     Log("UI created successfully")
-}
+end
 
 function DestroyUI()
     if not mainUI.initialized then return end
@@ -954,7 +946,7 @@ function DestroyUI()
     mainUI.initialized = false
     
     Log("UI destroyed successfully")
-}
+end
 
 function OnSceneLoaded(sceneName)
     Log("Scene loaded: " .. sceneName)
@@ -968,12 +960,12 @@ function OnSceneLoaded(sceneName)
         -- Destroy UI when leaving main scene
         DestroyUI()
     end
-}
+end
 
 function Shutdown()
     -- Always clean up UI elements when script unloads
     DestroyUI()
-}
+end
 ```
 
 ### Show Notifications and Dialogues
@@ -984,7 +976,7 @@ Use ScheduleLua's built-in functions for user interactions:
 -- Quick notification
 function NotifyPlayer(message)
     ShowNotification(message)
-}
+end
 
 -- Show dialogue with player choices
 function AskPlayerQuestion(title, question, choices)
@@ -995,7 +987,7 @@ function AskPlayerQuestion(title, question, choices)
     ShowChoiceDialogue(title, question, choices, function(index)
         Log("Player selected: " .. choices[index])
     end)
-}
+end
 
 -- Show temporary dialogue that auto-closes
 function ShowTemporaryMessage(title, message, delay)
@@ -1008,7 +1000,7 @@ function ShowTemporaryMessage(title, message, delay)
     Wait(delay, function()
         CloseDialogue()
     end)
-}
+end
 ```
 
 ## Memory Management
@@ -1030,7 +1022,7 @@ function ProcessInventoryData()
     
     -- Release the reference to allow garbage collection
     inventoryData = nil
-}
+end
 ```
 
 ### Avoid Circular References
@@ -1099,7 +1091,7 @@ function CalculateInventoryValue(includeEquipped)
     end
     
     return totalValue
-}
+end
 ```
 
 ### Mark Version in Scripts
@@ -1113,8 +1105,7 @@ local MOD_VERSION = "1.2.3"
 function Initialize()
     Log("=== " .. MOD_NAME .. " v" .. MOD_VERSION .. " ===")
     Log("Initializing economy enhancement features...")
-    return true
-}
+end
 ```
 
 ## Testing Best Practices
@@ -1151,7 +1142,7 @@ function TestParameterValidation()
     -- Test with valid parameter
     local result3 = YourFunction("validValue")
     Log("Result with valid value: " .. tostring(result3) .. " (Should be true)")
-}
+end
 ```
 
 ## Conclusion

@@ -42,7 +42,6 @@ module.exports = {
             { text: 'Installation', link: '/guide/installation' },
             { text: 'Getting Started', link: '/guide/getting-started' },
             { text: 'Development Status', link: '/guide/development-status' },
-            { text: 'Documentation Progress', link: '/guide/documentation-progress' },
           ]
         },
         {
@@ -193,7 +192,7 @@ module.exports = {
     },
     
     editLink: {
-      pattern: 'https://github.com/yourusername/schedulelua-docs/edit/main/docs/:path',
+      pattern: 'https://github.com/ifBars/ScheduleLua-Docs/edit/dev/docs/:path',
       text: 'Help improve this page'
     },
     

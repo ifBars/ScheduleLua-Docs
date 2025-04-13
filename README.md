@@ -36,12 +36,50 @@ npm run docs:dev
 
 ## 👥 Contributing
 
-Contributions to improve the documentation are welcome! Feel free to:
+Contributions to improve the documentation are welcome! Please follow these steps:
 
-1. Submit issues for incorrect or incomplete documentation
-2. Propose new documentation sections
-3. Fix or clarify existing documentation
-4. Add more code examples
+1. **Fork the repository**: Click the "Fork" button at the top right of [this repository](https://github.com/ifBars/ScheduleLua-Docs).
+
+2. **Clone your fork**: 
+   ```bash
+   git clone https://github.com/YOUR-USERNAME/ScheduleLua-Docs.git
+   cd ScheduleLua-Docs
+   ```
+
+3. **Set up the project**:
+   ```bash
+   npm install
+   ```
+
+4. **Create a new branch**:
+   ```bash
+   git checkout -b your-feature-branch
+   ```
+
+5. **Make your changes**: Update or add documentation files as needed.
+
+6. **Preview your changes locally**:
+   ```bash
+   npm run docs:dev
+   ```
+   The site will be available at http://localhost:5173/ScheduleLua-Docs/
+
+7. **Commit and push your changes**:
+   ```bash
+   git add .
+   git commit -m "Description of changes"
+   git push origin your-feature-branch
+   ```
+
+8. **Create a Pull Request**: Go to your fork on GitHub and click "New Pull Request". Make sure to set the base branch to `dev`.
+
+9. **Wait for review**: Your PR will be reviewed and merged if it meets the project's guidelines.
+
+Please ensure your contributions:
+- Follow the existing documentation style
+- Are clear and concise
+- Include examples where appropriate
+- Have been tested locally before submission
 
 ## 🔗 Related Links
 

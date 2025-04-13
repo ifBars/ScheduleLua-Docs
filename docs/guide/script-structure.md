@@ -31,7 +31,6 @@ local lastUpdate = 0
 function Initialize()
     Log("Script initializing...")
     -- Setup code here
-    return true
 end
 
 -- Update function - called every frame

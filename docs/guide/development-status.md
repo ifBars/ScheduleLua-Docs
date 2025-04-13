@@ -84,8 +84,8 @@ Most example scripts located in the `Resources` directory are fully functional a
 | SetPlayerHealth(amount) | ✅ | Sets the player's health |
 | GetPlayerRegion() | ✅ | Returns the name of the region the player is in |
 | IsPlayerInRegion(regionName) | ✅ | Checks if the player is in the specified region |
-| GetPlayerName() | 🔄 | Returns the player's name |
-| GetPlayerMovementState() | 🔄 | Returns the player's current movement state |
+| GetPlayerName() | ✅ | Returns the player's name |
+| GetPlayerMovementState() | ✅ | Returns the player's current movement state |
 
 ### Economy API
 
@@ -115,10 +115,10 @@ Most example scripts located in the `Resources` directory are fully functional a
 
 | Function | Status | Notes |
 |---------|--------|-------|
-| GetInventorySlotCount() | 🔄 | Returns the number of inventory slots |
-| GetInventoryItemAt(slotIndex) | 🔄 | Returns the item at specified inventory slot |
-| AddItemToInventory(itemName, amount) | 🔄 | Adds an item to player's inventory |
-| RemoveItemFromInventory(itemName, amount) | 🔄 | Removes an item from player's inventory |
+| GetInventorySlotCount() | 🟡 | Returns the number of inventory slots |
+| GetInventoryItemAt(slotIndex) | 🟡 | Returns the item at specified inventory slot |
+| AddItemToInventory(itemName, amount) | 🟡 | Adds an item to player's inventory |
+| RemoveItemFromInventory(itemName, amount) | 🟡 | Removes an item from player's inventory |
 
 ### NPC API
 
@@ -231,7 +231,7 @@ Most example scripts located in the `Resources` directory are fully functional a
 | OnSleepEnd() | ✅ | Called when player wakes up |
 | OnInventoryChanged() | 🔄 | Called when inventory changes |
 | OnPlayerMoneyChanged() | ✅ | Called when player money changes |
-| OnPlayerRegionChanged() | 🔄 | Called when player enters a new region |
+| OnPlayerRegionChanged() | ✅ | Called when player enters a new region |
 | OnCurfewEnabled() | ✅ | Called when curfew system is enabled |
 | OnCurfewDisabled() | ✅ | Called when curfew system is disabled |
 | OnCurfewWarning() | ✅ | Called when curfew warning is issued |

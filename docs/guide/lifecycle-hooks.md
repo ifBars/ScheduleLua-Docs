@@ -13,11 +13,10 @@ Lifecycle hooks are functions with specific names that ScheduleLua calls at part
 ```lua
 function Initialize()
     -- Initialization code here
-    return true -- Must return true for the script to continue
 end
 ```
 
-The `Initialize` function is called when your script is first loaded. It should perform any one-time setup tasks and return `true` if initialization was successful. If it returns `false` or throws an error, the script will not be loaded.
+The `Initialize` function is called when your script is first loaded.
 
 **Best Practice:** Use this function for:
 - Setting up initial variables
@@ -194,7 +193,6 @@ local playerLastRegion = nil
 -- Initialize function
 function Initialize()
     Log("Script initialized!")
-    return true
 end
 
 -- Update function

@@ -126,6 +126,6 @@ Now that you've created your first script, you can:
 1. Experiment with the stable APIs mentioned above
 2. Check the [Examples](/examples/) section for working code examples
 3. Review the [API Reference](/api/) for details on implemented functions
-4. Join the community to share your experiences and get help
+4. Join the [Schedule 1 Modding Discord](https://discord.gg/rV2QSAnqhX) to share your experiences and get help
 
 Remember that ScheduleLua is still in development, and your feedback is valuable for improving it! 

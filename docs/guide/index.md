@@ -6,13 +6,15 @@ ScheduleLua is a MelonLoader mod for Schedule 1 that allows you to write custom 
 
 ScheduleLua is a modding framework that bridges the gap between the Schedule 1 game and Lua scripts. It exposes game functionality to Lua, allowing you to:
 
-- Modify player attributes and inventory
+- Modify player attributes
+- Modify existing item attributes
+- Modify economy attributes
 - Interact with NPCs in the game world
 - Create custom UI elements and notifications
 - Hook into game events and time changes
 - Create custom console commands
-- Store and retrieve persistent data
 - Interact with the game's economy and law systems
+- And More
 
 ## How ScheduleLua Works
 
@@ -61,7 +63,7 @@ end
 local player = {
     name = "Player1",
     health = 100,
-    inventory = {"Sword", "Potion", "Gold"}
+    inventory = {"ogkush", "baggie", "jar"}
 }
 
 -- Accessing table properties
@@ -69,7 +71,7 @@ print(player.name)
 print(player.inventory[1])
 ```
 
-For a more comprehensive Lua tutorial, check out the [official Lua documentation](https://www.lua.org/manual/5.3/).
+For a more comprehensive Lua tutorial, check out the [official Lua documentation](https://www.lua.org/manual/5.2/).
 
 ## Next Steps
 
