@@ -6,6 +6,10 @@ on:
     branches:
       - dev
 
+# Add permissions to allow GitHub token to push to the repository
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
