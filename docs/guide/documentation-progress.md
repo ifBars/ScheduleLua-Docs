@@ -46,7 +46,7 @@ The following chart shows the overall completion status of major documentation s
 | [Time API](/api/time/game-time) | ✅ Complete | Game Time, Events | - |
 | [Map API](/api/map/) | 🟡 In Progress | Basic regions | Detailed region management |
 | [UI API](/api/ui/) | 🟠 Experimental | Basic notifications | Custom UI components |
-| [Registry API](/api/registry/) | 🔴 Planned | Overview | Data storage details |
+| Registry API | 🔴 Planned | Overview | Data storage details |
 | [Economy API](/api/economy/) | 🔴 Planned | Overview | Transaction details |
 | [Law API](/api/law/) | 🔴 Planned | Overview | Curfew, Law system details |
 
