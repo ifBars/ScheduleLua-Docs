@@ -57,17 +57,17 @@ ScheduleLua is an in-development modding framework that aims to bridge Schedule 
 <div class="quick-start-grid">
   <div class="quick-start-card">
     <div class="step-number">1</div>
-    <h3><a href="/guide/installation">Installation</a></h3>
+    <h3><a href="/ScheduleLua-Docs/guide/installation">Installation</a></h3>
     <p>Set up MelonLoader and install the ScheduleLua mod</p>
   </div>
   <div class="quick-start-card">
     <div class="step-number">2</div>
-    <h3><a href="/guide/getting-started">Basic Scripting</a></h3>
+    <h3><a href="/ScheduleLua-Docs/guide/getting-started">Basic Scripting</a></h3>
     <p>Learn Lua basics and test available features</p>
   </div>
   <div class="quick-start-card">
     <div class="step-number">3</div>
-    <h3><a href="/api/">API Reference</a></h3>
+    <h3><a href="/ScheduleLua-Docs/api/">API Reference</a></h3>
     <p>Explore currently implemented functionality</p>
   </div>
   <div class="quick-start-card">
