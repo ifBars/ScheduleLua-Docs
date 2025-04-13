@@ -2,6 +2,7 @@ module.exports = {
   title: 'ScheduleLua Documentation (Beta)',
   description: 'Documentation for the ScheduleLua MelonLoader Mod Lua API - Currently in Development',
   lastUpdated: true,
+  base: '/ScheduleLua-Docs/',
   head: [
     ['link', { rel: 'icon', href: '/logo.png' }],
     ['meta', { name: 'theme-color', content: '#42b883' }],
