@@ -117,7 +117,7 @@ module.exports = {
           ]
         },
         {
-          text: 'UI API (Experimental)',
+          text: 'UI API (Partial)',
           collapsed: true,
           items: [
             { text: 'Overview', link: '/api/ui/' },
@@ -126,15 +126,7 @@ module.exports = {
           ]
         },
         {
-          text: 'Registry API (Planned)',
-          collapsed: true,
-          items: [
-            { text: 'Overview', link: '/api/registry/' },
-            { text: 'Data Storage', link: '/api/registry/data-storage' },
-          ]
-        },
-        {
-          text: 'Economy API (Planned)',
+          text: 'Economy API (Partial)',
           collapsed: true,
           items: [
             { text: 'Overview', link: '/api/economy/' },
@@ -142,7 +134,7 @@ module.exports = {
           ]
         },
         {
-          text: 'Law API (Planned)',
+          text: 'Law API (Partial)',
           collapsed: true,
           items: [
             { text: 'Overview', link: '/api/law/' },

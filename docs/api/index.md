@@ -10,18 +10,18 @@ This section provides documentation for the ScheduleLua API functions and module
 
 The ScheduleLua API is being actively developed. Here's the current implementation status of major API categories:
 
-| API Category | Status | Notes |
-|--------------|--------|-------|
-| Core API | ✅ Stable | Logging, basic commands, timing functions are working reliably |
-| Player API | 🔄 Partial | Basic functionality works, some advanced features in development |
-| Time API | 🔄 Partial | All time-related functions are implemented and working |
-| NPC API | 🔄 Partial | Basic functions implemented, interaction features coming soon |
-| Map API | 🔄 Partial | Basic region functions are working |
-| Helper Functions | 🔄 Partial | Vector operations implemented, more utilities coming soon |
-| UI API | 🔄 Experimental | Basic notifications work, window system is experimental |
-| Registry API | 🔄 Experimental | Basic design completed, implementation not started |
-| Economy API | 🔄 Partial | Basic design completed, implementation not started |
-| Law API | 📝 Planned | Under design, implementation not started |
+| API Category | Status |
+|--------------|--------|
+| Core API | ✅ Stable |
+| Player API | 🔄 Partial |
+| Time API | 🔄 Partial |
+| NPC API | 🔄 Partial |
+| Map API | 🔄 Partial |
+| Helper Functions | 🔄 Partial |
+| UI API | 🔄 Partial |
+| Registry API | 🔄 Partial |
+| Economy API | 🔄 Partial |
+| Law API | 📝 Planned |
 
 See the [Development Status](/guide/development-status) page for more detailed information.
 
@@ -48,7 +48,7 @@ Utility functions such as Vector3 operations to simplify common tasks.
 ### [UI API](./ui/) - 🔄 Experimental
 Create notifications and basic UI elements. Advanced features are still in development.
 
-### [Registry API](./registry/) - 🔄 Experimental
+### Registry API - 🔄 Experimental
 Store and retrieve data persistent across script executions and game sessions.
 
 ### [Economy API](./economy/) - 🔄 Partial
