@@ -1,0 +1,30 @@
+# Ignore ScheduleOne and ScheduleLua directories (This is so my, Bars, PC doesn't commit them)
+/ScheduleOne/
+/ScheduleLua/
+
+# Node dependencies
+node_modules/
+
+# Build output directories
+docs/.vitepress/dist/
+.vite/
+dist/
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Editor and IDE settings
+.vscode/
+.idea/
+.vs/
