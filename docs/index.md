@@ -31,10 +31,10 @@ features:
     link: /api/
     linkText: Available APIs
   - icon: 📝
-    title: Documentation Progress
-    details: This documentation is being built alongside the mod. Some sections may be incomplete or describe planned functionality.
-    link: /guide/documentation-progress
-    linkText: View Progress
+    title: Lua Examples
+    details: ScheduleLua provides multiple example scripts for you to test with.
+    link: /examples/
+    linkText: View Examples
   - icon: 🤝
     title: Community Driven
     details: Contribute to the development of ScheduleLua by testing, reporting issues, or submitting code improvements.
