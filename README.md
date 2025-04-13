@@ -22,20 +22,16 @@ ScheduleLua is currently in beta development. The API is subject to change and s
 
 ## 🧰 Local Development
 
-To run this documentation site locally:
+To run this documentation site locally, download the zip, then:
 
 ```bash
+cd path/to/your-docs-folder
+
 # Install dependencies
 npm install
 
 # Start local development server
 npm run docs:dev
-
-# Build for production
-npm run docs:build
-
-# Serve the production build
-npm run docs:serve
 ```
 
 ## 👥 Contributing
@@ -44,7 +40,7 @@ Contributions to improve the documentation are welcome! Feel free to:
 
 1. Submit issues for incorrect or incomplete documentation
 2. Propose new documentation sections
-3. Fix typos or clarify existing documentation
+3. Fix or clarify existing documentation
 4. Add more code examples
 
 ## 🔗 Related Links
@@ -54,4 +50,4 @@ Contributions to improve the documentation are welcome! Feel free to:
 
 ## 📄 License
 
-This documentation is released under the MIT License. 
+This documentation is released under the GPL-3.0 License. 
