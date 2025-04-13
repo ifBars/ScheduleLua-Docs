@@ -67,24 +67,13 @@ end)
 
 **Example:**
 ```lua
-function CheckForKeycard()
-    if HasItem("keycard_security") then
-        ShowNotification("You have a security keycard.")
+function CheckForOgKush()
+    if HasItem("og_kush") then
+        ShowNotification("You have OG Kush.")
         return true
     else
-        ShowNotification("You don't have a security keycard.")
+        ShowNotification("You don't have OG Kush.")
         return false
-    end
-end
-
--- Use in a door script
-function TryOpenSecureDoor()
-    if CheckForKeycard() then
-        PlaySound("door_unlock")
-        ShowNotification("Door unlocked with security keycard.")
-    else
-        PlaySound("door_locked")
-        ShowNotification("This door requires a security keycard.")
     end
 end
 ```
@@ -105,16 +94,16 @@ end
 **Example:**
 ```lua
 function GivePlayerMoney(amount)
-    if AddItem("money", amount) then
+    if AddItem("cash", amount) then
         ShowNotification("You received $" .. amount)
         return true
     else
-        ShowNotification("Failed to add money to inventory")
+        ShowNotification("Failed to add cash to inventory")
         return false
     end
 end
 
-RegisterCommand("givemoney", "Gives money to the player", "givemoney [amount]", function(args)
+RegisterCommand("givecash", "Gives cash to the player", "givecash [amount]", function(args)
     if #args < 2 then
         ShowNotification("Please specify an amount")
         return
@@ -145,25 +134,25 @@ end)
 
 **Example:**
 ```lua
-function UseHealthKit()
-    if not HasItem("health_kit") then
-        ShowNotification("You don't have a health kit.")
+function UseOgKush()
+    if not HasItem("og_kush") then
+        ShowNotification("You don't have OG Kush.")
         return false
     end
     
-    if RemoveItem("health_kit", 1) then
+    if RemoveItem("og_kush", 1) then
         -- Heal the player
         AddPlayerHealth(50)
-        ShowNotification("Used health kit. Health restored.")
+        ShowNotification("Used OG Kush. Health restored.")
         return true
     else
-        ShowNotification("Failed to use health kit.")
+        ShowNotification("Failed to use OG Kush.")
         return false
     end
 }
 
-RegisterCommand("heal", "Uses a health kit", "heal", function(args)
-    UseHealthKit()
+RegisterCommand("useogkush", "Uses a og kush item", "useogkush", function(args)
+    UseOgKush()
 end)
 ```
 

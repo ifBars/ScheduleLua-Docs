@@ -2,93 +2,109 @@
 
 This section covers the functions used to find and get information about NPCs in Schedule 1.
 
-## FindNPC
+## GetNPC
 
-**Signature:** `NPC FindNPC(string npcName)`
+**Signature:** `NPC GetNPC(string npcId)`
 
-**Description:** Finds and returns an NPC by name. This function is the primary way to locate a specific NPC in the game world.
+**Description:** Gets an NPC object by ID. This function is the primary way to locate a specific NPC in the game world.
 
 ### Parameters
 
-- `npcName` (string): The name of the NPC to find
+- `npcId` (string): The unique identifier of the NPC to find
 
 ### Returns
 
-An NPC object if found, or `nil` if no NPC with the given name exists.
+An NPC object if found, or `nil` if no NPC with the given ID exists.
 
 ### Example
 
 ```lua
-function SayHelloToNPC(npcName)
-    local npc = FindNPC(npcName)
+function SayHelloToNPC(npcId)
+    local npc = GetNPC(npcId)
     
     if npc then
-        Log("Found NPC: " .. npcName)
+        Log("Found NPC with ID: " .. npcId)
         -- You can now use this NPC object with other functions
         local position = GetNPCPosition(npc)
         Log("NPC is at position: " .. position.x .. ", " .. position.y .. ", " .. position.z)
     else
-        LogWarning("NPC not found: " .. npcName)
+        LogWarning("NPC not found: " .. npcId)
     end
 end
 
 -- Usage
-SayHelloToNPC("Bob")
+SayHelloToNPC("doris_lubbin")
 ```
 
 ### Notes
 
 - The NPC object returned can be used with other NPC functions like `GetNPCPosition`
-- NPC names are case-sensitive
+- NPC IDs are case-sensitive
 - Performance tip: Cache the NPC object if you need to use it repeatedly
 
-## GetNPC
+## GetNPCState
 
-**Signature:** `Table GetNPC(string npcId)`
+**Signature:** `Table GetNPCState(string npcId)`
 
 **Description:** Gets detailed information about an NPC by their identifier and returns it as a Lua table.
 
 ### Parameters
 
-- `npcId` (string): The ID or name of the NPC
+- `npcId` (string): The ID of the NPC
 
 ### Returns
 
 A table containing NPC information with the following fields:
 - `id` (string): The NPC's unique identifier
 - `fullName` (string): The NPC's full name
-- `isActive` (boolean): Whether the NPC is currently active in the game world
+- `isConscious` (boolean): Whether the NPC is currently conscious
 - `region` (string): The current region the NPC is in
-- Additional fields may be available depending on the NPC type
+- `position` (table): A table with x, y, z coordinates of the NPC's position
+- `isMoving` (boolean): Whether the NPC is currently moving (if applicable)
 
 Returns `nil` if the NPC is not found.
 
 ### Example
 
 ```lua
-function DisplayNPCInfo(npcName)
-    local npcInfo = GetNPC(npcName)
+function DisplayNPCInfo(npcId)
+    local npcState = GetNPCState(npcId)
     
-    if npcInfo then
+    if npcState then
         Log("----- NPC Information -----")
-        Log("ID: " .. npcInfo.id)
-        Log("Full Name: " .. npcInfo.fullName)
-        Log("Active: " .. tostring(npcInfo.isActive))
-        Log("Region: " .. (npcInfo.region or "Unknown"))
+        Log("ID: " .. npcState.id)
+        Log("Full Name: " .. npcState.fullName)
+        Log("Conscious: " .. tostring(npcState.isConscious))
+        Log("Region: " .. (npcState.region or "Unknown"))
+        
+        if npcState.position then
+            Log("Position: X=" .. npcState.position.x .. 
+                ", Y=" .. npcState.position.y .. 
+                ", Z=" .. npcState.position.z)
+        end
+        
+        if npcState.isMoving ~= nil then
+            Log("Moving: " .. tostring(npcState.isMoving))
+        end
         
         -- Access any additional properties
-        for key, value in pairs(npcInfo) do
-            if type(value) ~= "table" and key ~= "id" and key ~= "fullName" and key ~= "isActive" and key ~= "region" then
+        for key, value in pairs(npcState) do
+            if type(value) ~= "table" and 
+               key ~= "id" and 
+               key ~= "fullName" and 
+               key ~= "isConscious" and 
+               key ~= "region" and 
+               key ~= "isMoving" then
                 Log(key .. ": " .. tostring(value))
             end
         end
     else
-        LogWarning("Could not get information for NPC: " .. npcName)
+        LogWarning("Could not get information for NPC: " .. npcId)
     end
 end
 
 -- Usage
-DisplayNPCInfo("Bob")
+DisplayNPCInfo("bob_001")
 ```
 
 ### Notes
@@ -100,25 +116,24 @@ DisplayNPCInfo("Bob")
 
 **Status:** 🔄 Partial
 
-**Signature:** `table GetNPCPosition(userdata npc)`
+**Signature:** `Vector3Proxy GetNPCPosition(NPC npc)`
 
 **Description:** Gets the position of an NPC in the game world.
 
 ### Parameters
 
-- `npc` (userdata): An NPC object reference (from `FindNPC`)
+- `npc` (NPC): An NPC object reference (from `GetNPC`)
 
 ### Returns
 
-A table containing the NPC's position as x, y, z coordinates:
-- `x` (number): X coordinate
-- `y` (number): Y coordinate
-- `z` (number): Z coordinate
+A Vector3Proxy object containing the NPC's position with x, y, and z coordinates.
+
+Returns Vector3.zero (0,0,0) if the NPC is invalid.
 
 ### Example
 
 ```lua
-local npc = FindNPC("John")
+local npc = GetNPC("bob_001")
 if npc then
     local pos = GetNPCPosition(npc)
     if pos then
@@ -143,8 +158,8 @@ end
 
 ### Notes
 
-- Returns `nil` if the NPC reference is invalid
-- The position is returned as a table with x, y, z properties
+- Returns Vector3.zero (0,0,0) if the NPC reference is invalid
+- The returned position is a Vector3Proxy object with x, y, and z properties
 
 ## GetNPCRegion
 
@@ -154,7 +169,7 @@ end
 
 ### Parameters
 
-- `npcId` (string): The ID or name of the NPC
+- `npcId` (string): The ID of the NPC
 
 ### Returns
 
@@ -163,26 +178,26 @@ A string containing the region name, or `nil` if the NPC is not found or not in 
 ### Example
 
 ```lua
-function CheckNPCLocation(npcName)
-    local region = GetNPCRegion(npcName)
+function CheckNPCLocation(npcId)
+    local region = GetNPCRegion(npcId)
     
     if region then
-        Log(npcName .. " is in the " .. region .. " region.")
+        Log("NPC with ID " .. npcId .. " is in the " .. region .. " region.")
         
         -- Check if player is in the same region
         local playerRegion = GetPlayerRegion()
         if playerRegion == region then
-            Log("You are in the same region as " .. npcName)
+            Log("You are in the same region as this NPC")
         else
-            Log("You are not in the same region as " .. npcName)
+            Log("You are not in the same region as this NPC")
         end
     else
-        LogWarning("Could not find " .. npcName .. " or they are not in any known region.")
+        LogWarning("Could not find NPC with ID " .. npcId .. " or they are not in any known region.")
     end
 }
 
 -- Usage
-CheckNPCLocation("Bob")
+CheckNPCLocation("bob_001")
 ```
 
 ### Notes
@@ -364,8 +379,8 @@ CheckImportantNPCLocations()
 
 ## Best Practices
 
-- **Cache NPC objects:** If you need to work with the same NPC multiple times, save the result of `FindNPC()` to avoid repeated lookups
-- **Check for nil:** Always check if `FindNPC()` or `GetNPC()` returned a valid object before using it
+- **Cache NPC objects:** If you need to work with the same NPC multiple times, save the result of `GetNPC()` to avoid repeated lookups
+- **Check for nil:** Always check if `GetNPC()` returned a valid object before using it
 - **Region awareness:** Use region-based functions when possible instead of position-based checks for better performance
 - **Handle non-existent NPCs:** Add proper error handling for cases where NPCs might not exist
 - **Limit processing in Update:** Be careful when calling NPC functions in the `Update()` function as it runs every frame 

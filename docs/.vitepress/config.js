@@ -177,8 +177,8 @@ module.exports = {
     
     // Footer
     footer: {
-      message: 'Released as Beta Software under the MIT License.',
-      copyright: 'Copyright © 2023-present'
+      message: 'Released as Beta Software under the GPL-3.0 License.',
+      copyright: 'Built with VitePress'
     },
     
     // Additional features

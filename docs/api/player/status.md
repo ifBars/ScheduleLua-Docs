@@ -111,11 +111,13 @@ SetPlayerHealth(100)
 -- Damage the player severely
 SetPlayerHealth(10)
 
--- Create a command to heal
-RegisterCommand("heal", "Heals the player", "heal", function(args)
-    SetPlayerHealth(100)
-    Log("Player healed to full health")
-end)
+-- Create a command to heal once console is ready
+function OnConsoleReady()
+    RegisterCommand("heal", "Heals the player", "heal", function(args)
+        SetPlayerHealth(100)
+        Log("Player healed to full health")
+    end)
+end
 ```
 
 ### Notes
@@ -173,11 +175,13 @@ None.
 -- Restore player's energy to full
 SetPlayerEnergy(100)
 
--- Create a command to restore energy
-RegisterCommand("energy", "Restores player energy", "energy", function(args)
-    SetPlayerEnergy(100)
-    Log("Player energy restored")
-end)
+-- Create a command to restore energy once console is ready
+function OnConsoleReady()
+    RegisterCommand("energy", "Restores player energy", "energy", function(args)
+        SetPlayerEnergy(100)
+        Log("Player energy restored")
+    end)
+end
 ```
 
 ### Notes
@@ -242,15 +246,16 @@ Log("Added $100 to player")
 AddPlayerMoney(-50)
 Log("Removed $50 from player")
 
--- Create a money cheat command
-RegisterCommand("money", "Gives money to player", "money [amount]", function(args)
-    local amount = tonumber(args[2]) or 100
-    AddPlayerMoney(amount)
-    Log("Added $" .. amount .. " to player")
-end)
+-- Create a money cheat command once console is ready
+function OnConsoleReady()
+    RegisterCommand("money", "Gives money to player", "money [amount]", function(args)
+        local amount = tonumber(args[2]) or 100
+        AddPlayerMoney(amount)
+        Log("Added $" .. amount .. " to player")
+    end)
+end
 ```
 
 ### Notes
 
-- Use a negative amount to remove money from the player
-- The player's money will not go below zero 
+- For more advanced money management, see the [Economy API](../economy/index.md) which provides comprehensive functions interaction with Schedule 1's MoneyManager.

@@ -19,11 +19,9 @@ None.
 A string representing the player's current movement state:
 - `"Idle"`: Player is not moving
 - `"Walking"`: Player is walking
-- `"Running"`: Player is running
 - `"Sprinting"`: Player is sprinting
 - `"Jumping"`: Player is jumping
 - `"Falling"`: Player is falling
-- `"Swimming"`: Player is swimming
 - `"Crouching"`: Player is crouching
 
 ### Example
@@ -37,11 +35,6 @@ function Update()
         if energy < 20 then
             ShowNotification("Low energy while sprinting!")
         end
-    end
-    
-    if moveState == "Swimming" then
-        -- Special swimming logic
-        Log("Player is swimming")
     end
 end
 ```
@@ -97,7 +90,7 @@ end
 
 **Signature:** `void SetPlayerPosition(number x, number y, number z)`
 
-**Description:** Sets the position of the player in the world to the specified coordinates.
+**Description:** Sets the position of the player in the world to the specified coordinates using the players Transform component.
 
 ### Parameters
 
@@ -119,21 +112,22 @@ SetPlayerPosition(100, 0, 200)
 local pos = GetPlayerPosition()
 SetPlayerPosition(pos.x, pos.y + 5, pos.z)
 
--- Create a teleport command
-RegisterCommand("goto", "Teleport to coordinates", "goto x y z", function(args)
-    local x = tonumber(args[2]) or 0
-    local y = tonumber(args[3]) or 0
-    local z = tonumber(args[4]) or 0
+-- Create a teleport command once console is ready
+function OnConsoleReady()
+    RegisterCommand("goto", "Teleport to coordinates", "goto x y z", function(args)
+        local x = tonumber(args[2]) or 0
+        local y = tonumber(args[3]) or 0
+        local z = tonumber(args[4]) or 0
     
-    SetPlayerPosition(x, y, z)
-    Log("Teleported to X=" .. x .. ", Y=" .. y .. ", Z=" .. z)
-end)
+        SetPlayerPosition(x, y, z)
+        Log("Teleported to X=" .. x .. ", Y=" .. y .. ", Z=" .. z)
+    end)
+end
 ```
 
 ### Notes
 
-- This function changes the player's position immediately without animation
-- May cause physics glitches if teleporting into solid objects
+- This function changes the player's position using Unity's Transform component
 - Use with caution in complex environments
 
 ## TeleportPlayer
@@ -157,25 +151,26 @@ None.
 ### Example
 
 ```lua
--- Safely teleport player to coordinates
-TeleportPlayer(100, 0, 200)
+-- Teleport player to coordinates
+TeleportPlayer(-56, 1, 90)
 
--- Create a teleport command with enhanced safety
-RegisterCommand("teleport", "Safely teleport to coordinates", "teleport x y z", function(args)
-    local x = tonumber(args[2]) or 0
-    local y = tonumber(args[3]) or 0
-    local z = tonumber(args[4]) or 0
+-- Create a teleport command with enhanced safety once console is ready
+function OnConsoleReady()
+    RegisterCommand("teleport", "Teleport to coordinates", "teleport x y z", function(args)
+        local x = tonumber(args[2]) or 0
+        local y = tonumber(args[3]) or 0
+        local z = tonumber(args[4]) or 0
     
-    TeleportPlayer(x, y, z)
-    Log("Safely teleported to X=" .. x .. ", Y=" .. y .. ", Z=" .. z)
-end)
+        TeleportPlayer(x, y, z)
+        Log("Teleported to X=" .. x .. ", Y=" .. y .. ", Z=" .. z)
+    end)
+end
 ```
 
 ### Notes
 
 - Preferred over `SetPlayerPosition` for most teleportation needs
-- Handles physics transitions and collision detection
-- May include screen fade effects depending on game configuration
+- Uses the Teleport function from Schedule 1's PlayerMovement class
 
 ## GetPlayerRegion
 
@@ -232,26 +227,19 @@ end
 
 ```lua
 function Update()
-    -- Check if player is in a restricted area
-    if IsPlayerInRegion("RestrictedZone") then
-        ShowNotification("WARNING: You are in a restricted area!")
+    -- Check if player is in Westville
+    if IsPlayerInRegion("Westville") then
+        ShowNotification("You are in westville!")
         
         -- Check if it's also nighttime
         if IsNightTime() then
             ShowNotification("Nighttime security increased in this area!")
         end
     end
-    
-    -- Check if player is in town
-    if IsPlayerInRegion("Town") and not townVisitRecorded then
-        Log("Player visited town")
-        townVisitRecorded = true
-    end
 end
 ```
 
 ### Notes
 
-- Region names are case-sensitive
 - Returns `false` if the region doesn't exist
 - Useful for area-specific gameplay logic 

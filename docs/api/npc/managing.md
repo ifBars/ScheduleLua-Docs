@@ -14,7 +14,7 @@ These functions allow you to manage and modify NPCs in the game world.
 
 ### Parameters
 
-- `npc` (NPC): An NPC object obtained from `FindNPC()`
+- `npc` (NPC): An NPC object obtained from `GetNPC()`
 
 ### Returns
 
@@ -25,10 +25,10 @@ Returns Vector3.zero (0,0,0) if the NPC is invalid.
 ### Example
 
 ```lua
-function GetDistanceToNPC(npcName)
-    local npc = FindNPC(npcName)
+function GetDistanceToNPC(npcId)
+    local npc = GetNPC(npcId)
     if not npc then
-        LogWarning("NPC not found: " .. npcName)
+        LogWarning("NPC not found: " .. npcId)
         return -1
     end
     
@@ -36,15 +36,15 @@ function GetDistanceToNPC(npcName)
     local playerPosition = GetPlayerPosition()
     
     local distance = Vector3Distance(npcPosition, playerPosition)
-    Log("Distance to " .. npcName .. ": " .. distance .. " units")
+    Log("Distance to NPC with ID " .. npcId .. ": " .. distance .. " units")
     
     return distance
 end
 
 -- Usage
-RegisterCommand("distance", "Shows distance to an NPC", "distance [npcName]", function(args)
+RegisterCommand("distance", "Shows distance to an NPC", "distance [npcId]", function(args)
     if not args[2] then
-        LogError("Please specify an NPC name")
+        LogError("Please specify an NPC ID")
         return
     end
     
@@ -54,19 +54,25 @@ end)
 
 ### Notes
 
-- This function requires an NPC object from `FindNPC()`, not just an NPC ID
+- This function requires an NPC object from `GetNPC()`, not just an NPC ID
 - The returned Vector3Proxy has x, y, and z properties
 - Returns (0,0,0) for invalid NPCs rather than throwing an error
 
 ## SetNPCPosition
 
+**Status:** ⚠️ In Development
+
 **Signature:** `void SetNPCPosition(NPC npc, float x, float y, float z)`
 
 **Description:** Sets the position of an NPC to the specified coordinates in the game world.
 
+<div class="custom-block danger">
+  <p><strong>Important Notice:</strong> This function is still in active development and does not work as intended in the current version. NPC position setting may not behave correctly or may have no effect.</p>
+</div>
+
 ### Parameters
 
-- `npc` (NPC): An NPC object obtained from `FindNPC()`
+- `npc` (NPC): An NPC object obtained from `GetNPC()`
 - `x` (float): The X coordinate
 - `y` (float): The Y coordinate (height)
 - `z` (float): The Z coordinate
@@ -78,10 +84,13 @@ None.
 ### Example
 
 ```lua
-function TeleportNPCToPlayer(npcName, offset)
-    local npc = FindNPC(npcName)
+-- NOTE: This example is provided for future reference, but the function
+-- is currently still in development and may not work as intended
+
+function TeleportNPCToPlayer(npcId, offset)
+    local npc = GetNPC(npcId)
     if not npc then
-        LogError("NPC not found: " .. npcName)
+        LogError("NPC not found: " .. npcId)
         return false
     end
     
@@ -93,14 +102,15 @@ function TeleportNPCToPlayer(npcName, offset)
         playerPos.y,         -- Same height as player
         playerPos.z + offset)
     
-    Log("Teleported " .. npcName .. " to player's location")
+    Log("Attempted to teleport NPC with ID " .. npcId .. " to player's location")
+    Log("Note: SetNPCPosition is still in development and may not work correctly")
     return true
 end
 
 -- Usage
-RegisterCommand("tpnpc", "Teleports an NPC to you", "tpnpc [npcName] [offset]", function(args)
+RegisterCommand("tpnpc", "Attempts to teleport an NPC to you", "tpnpc [npcId] [offset]", function(args)
     if not args[2] then
-        LogError("Please specify an NPC name")
+        LogError("Please specify an NPC ID")
         return
     end
     
@@ -111,22 +121,32 @@ end)
 
 ### Notes
 
-- This function immediately teleports the NPC to the new position
-- Moving NPCs may affect their AI behavior or scheduled activities
-- Some NPCs might have movement restrictions in the game that could override this function
-- This function is experimental and may not work with all NPCs
+- This function is currently in development and may not work as intended
+- In the current implementation, NPCs may not move or may behave unpredictably when their position is set
+- NPC movement is generally controlled by the game's AI and pathfinding systems
+- Some NPCs have fixed positions or movement patterns that override manual position settings
+- Future updates will improve the reliability of this function
 
-## Creating NPC Formations
+## Potential Future Feature: Creating NPC Formations
 
-You can use the NPC position functions to create formations of NPCs:
+<div class="custom-block warning">
+  <p><strong>Concept Only:</strong> This example demonstrates a potential future use of the NPC positioning API once it's fully implemented. The current API does not reliably support this functionality.</p>
+</div>
+
+The following example shows how you might arrange NPCs in a circle formation, which could be possible in the future once the SetNPCPosition function is fully implemented:
 
 ```lua
-function ArrangeNPCsInCircle(npcNames, centerX, centerZ, radius)
+-- NOTE: This is a conceptual example that depends on SetNPCPosition
+-- which is still in development and does not work as intended
+
+function ArrangeNPCsInCircle(npcIds, centerX, centerZ, radius)
     -- Check if we have a valid list of NPCs
-    if not npcNames or #npcNames == 0 then
+    if not npcIds or #npcIds == 0 then
         LogError("No NPCs specified for circle formation")
         return
     end
+    
+    LogWarning("Note: The SetNPCPosition function is still in development and may not work correctly")
     
     -- If no center specified, use player's position
     if not centerX or not centerZ then
@@ -138,10 +158,10 @@ function ArrangeNPCsInCircle(npcNames, centerX, centerZ, radius)
     radius = radius or 5.0 -- Default radius
     
     -- Arrange NPCs in a circle
-    local angleStep = (2 * math.pi) / #npcNames
+    local angleStep = (2 * math.pi) / #npcIds
     
-    for i, npcName in ipairs(npcNames) do
-        local npc = FindNPC(npcName)
+    for i, npcId in ipairs(npcIds) do
+        local npc = GetNPC(npcId)
         if npc then
             local angle = angleStep * (i - 1)
             local x = centerX + radius * math.cos(angle)
@@ -151,156 +171,25 @@ function ArrangeNPCsInCircle(npcNames, centerX, centerZ, radius)
             local currentPos = GetNPCPosition(npc)
             
             SetNPCPosition(npc, x, currentPos.y, z)
-            Log("Positioned " .. npcName .. " in circle formation")
+            Log("Attempted to position NPC with ID " .. npcId .. " in circle formation")
         else
-            LogWarning("Could not find NPC: " .. npcName)
+            LogWarning("Could not find NPC: " .. npcId)
         end
     end
     
-    Log("Arranged " .. #npcNames .. " NPCs in a circle formation")
+    Log("Attempted to arrange " .. #npcIds .. " NPCs in a circle formation")
 end
-
--- Usage
-RegisterCommand("circle", "Arranges NPCs in a circle around you", "circle [radius] [npc1] [npc2] ...", function(args)
-    if #args < 3 then
-        LogError("Please specify a radius and at least one NPC name")
-        return
-    end
-    
-    local radius = tonumber(args[2])
-    local npcs = {}
-    
-    for i = 3, #args do
-        table.insert(npcs, args[i])
-    end
-    
-    ArrangeNPCsInCircle(npcs, nil, nil, radius)
-end)
-```
-
-## NPC Following Behavior
-
-You can create scripts to make NPCs follow the player or other NPCs:
-
-```lua
--- Global variables to track following NPCs
-local followingNPCs = {}
-local isFollowingActive = false
-
-function StartNPCFollowing(npcName, distance)
-    local npc = FindNPC(npcName)
-    if not npc then
-        LogError("NPC not found: " .. npcName)
-        return false
-    end
-    
-    -- Add NPC to following list with desired following distance
-    followingNPCs[npcName] = {
-        npc = npc,
-        distance = distance or 2.0,
-        lastUpdateTime = 0 -- Used to throttle position updates
-    }
-    
-    -- Activate following system if this is the first NPC
-    if not isFollowingActive then
-        isFollowingActive = true
-        Log("NPC following system activated")
-    end
-    
-    Log(npcName .. " is now following you (distance: " .. followingNPCs[npcName].distance .. ")")
-    return true
-end
-
-function StopNPCFollowing(npcName)
-    if npcName then
-        -- Stop specific NPC from following
-        if followingNPCs[npcName] then
-            followingNPCs[npcName] = nil
-            Log(npcName .. " has stopped following you")
-        else
-            LogWarning(npcName .. " was not following you")
-        end
-    else
-        -- Stop all NPCs from following
-        followingNPCs = {}
-        Log("All NPCs have stopped following you")
-    end
-    
-    -- If no NPCs are following, deactivate system
-    if next(followingNPCs) == nil then
-        isFollowingActive = false
-        Log("NPC following system deactivated")
-    end
-end
-
-function Update()
-    -- Only process if following is active
-    if not isFollowingActive then
-        return
-    end
-    
-    -- Get player position
-    local playerPos = GetPlayerPosition()
-    local currentTime = os.time()
-    
-    -- Update each following NPC position
-    for npcName, data in pairs(followingNPCs) do
-        -- Throttle updates to avoid excessive position changes (every 0.5 seconds)
-        if currentTime - data.lastUpdateTime >= 0.5 then
-            local npcPos = GetNPCPosition(data.npc)
-            
-            -- Calculate direction vector from NPC to player
-            local dirX = playerPos.x - npcPos.x
-            local dirZ = playerPos.z - npcPos.z
-            
-            -- Calculate distance
-            local distance = math.sqrt(dirX*dirX + dirZ*dirZ)
-            
-            -- Only move if NPC is too far from desired following distance
-            if distance > data.distance + 1.0 then
-                -- Normalize direction vector
-                local normFactor = data.distance / distance
-                
-                -- Calculate new position that's [followDistance] units away from player
-                local newX = playerPos.x - dirX * normFactor
-                local newZ = playerPos.z - dirZ * normFactor
-                
-                -- Update NPC position, maintaining their current height
-                SetNPCPosition(data.npc, newX, npcPos.y, newZ)
-                
-                -- Update last update time
-                followingNPCs[npcName].lastUpdateTime = currentTime
-            end
-        end
-    end
-end
-
--- Command to make an NPC follow you
-RegisterCommand("follow", "Makes an NPC follow you", "follow [npcName] [distance]", function(args)
-    if not args[2] then
-        LogError("Please specify an NPC name")
-        return
-    end
-    
-    local distance = tonumber(args[3]) or 2.0
-    StartNPCFollowing(args[2], distance)
-end)
-
--- Command to stop NPCs from following
-RegisterCommand("stopfollow", "Stops an NPC from following you", "stopfollow [npcName]", function(args)
-    StopNPCFollowing(args[2]) -- If args[2] is nil, all NPCs will stop following
-end)
 ```
 
 ## Best Practices for NPC Management
 
 - **Respect the game world**: Teleporting NPCs to unreachable locations may cause gameplay issues
-- **Update throttling**: When moving NPCs frequently (like in the follow example), throttle your updates to avoid performance issues
+- **Update throttling**: When moving NPCs frequently, throttle your updates to avoid performance issues
 - **Error handling**: Always check if the NPC exists before trying to manipulate its position
 - **Maintain the Y coordinate**: When moving NPCs horizontally, consider keeping their current Y position to avoid placing them inside terrain or floating in the air
 - **Position validation**: Consider adding safety checks to ensure you're not positioning NPCs out of bounds
 - **Performance awareness**: Manipulating many NPCs simultaneously can impact performance
-- **Release tracking**: If you're tracking NPCs in a table (like in the follow example), make sure to remove them when they're no longer needed
+- **Be aware of limitations**: Currently, NPC positioning functions are still in development and may not work reliably
 
 ## Upcoming NPC Management Functions
 

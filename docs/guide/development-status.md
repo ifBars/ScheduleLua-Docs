@@ -14,7 +14,7 @@ This page provides a transparent overview of what's currently working in Schedul
 - 🟡 **Partial** - Feature is partially implemented but may have limitations
 - 🔄 **In Progress** - Feature is actively being developed
 - 📅 **Planned** - Feature is planned for future implementation
-- ❌ **Not Started** - Feature is not yet implemented
+- ❌ **Not Planned** - Feature is not yet planned
 
 ## Core Systems
 
@@ -66,9 +66,9 @@ Most example scripts located in the `Resources` directory are fully functional a
 | GetGameTime() | ✅ | Returns the current in-game time (minutes) |
 | FormatGameTime(timeValue) | ✅ | Formats a time value as a string (HH:MM) |
 | GetGameDay() | ✅ | Returns the current day name (e.g., "Monday") |
-| GetGameDayInt() | 🔄 | Returns the current day as a number (1-7) |
+| GetGameDayInt() | ✅ | Returns the current day as a number (1-7) |
 | IsNightTime() | ✅ | Returns true if it's currently night time |
-| SetTime(timeValue) | 🔄 | Sets the game time to the specified value |
+| SetTime(timeValue) | 📅 | Sets the game time to the specified value |
 
 ### Player API
 
@@ -97,8 +97,8 @@ Most example scripts located in the `Resources` directory are fully functional a
 | GetPlayerOnlineBalance() | ✅ | Returns the player's online bank balance |
 | AddOnlineBalance(amount) | 🟡 | Adds to player's online balance but UI doesn't update |
 | RemoveOnlineBalance(amount) | 🟡 | Removes from player's online balance but UI doesn't update |
-| GetLifetimeEarnings() | 🔄 | Returns the player's lifetime earnings |
-| GetNetWorth() | 🔄 | Returns the player's total net worth |
+| GetLifetimeEarnings() | ✅ | Returns the player's lifetime earnings |
+| GetNetWorth() | ✅ | Returns the player's total net worth |
 | FormatMoney(amount) | ✅ | Formats a money amount as a string |
 | CheckIfCanAfford(amount) | ✅ | Checks if the player can afford the specified amount |
 | CreateTransaction(description, price, quantity, useOnline) | 🔄 | Creates and processes a transaction |
@@ -124,7 +124,7 @@ Most example scripts located in the `Resources` directory are fully functional a
 
 | Function | Status | Notes |
 |---------|--------|-------|
-| FindNPC(npcName) | ✅ | Finds an NPC by name |
+| FindNPC(npcName) | 🔄 | Finds an NPC by name |
 | GetNPC(npcId) | ✅ | Gets NPC data by ID |
 | GetNPCPosition(npc) | ✅ | Gets an NPC's position |
 | SetNPCPosition(npc, x, y, z) | 🔄 | Sets an NPC's position (Untested) |

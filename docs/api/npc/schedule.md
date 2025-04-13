@@ -33,7 +33,7 @@ A table containing the NPC's daily schedule with entries for each time period:
 ```lua
 function OnPlayerReady()
     -- Find an NPC
-    local shopkeeper = FindNPC("Shopkeeper")
+    local shopkeeper = GetNPC("shopkeeper_001")
     if shopkeeper then
         -- Get their schedule
         local schedule = GetNPCSchedule(shopkeeper)
@@ -92,7 +92,7 @@ A table containing information about the NPC's current activity:
 ```lua
 function Update()
     -- Find the mayor
-    local mayor = FindNPC("Mayor")
+    local mayor = GetNPC("mayor_001")
     if mayor then
         -- Get current activity
         local activity = GetNPCCurrentActivity(mayor)
@@ -123,6 +123,10 @@ end
 
 **Description:** Adds or modifies a schedule entry for an NPC.
 
+<div class="custom-block warning">
+  <p><strong>Note:</strong> While this function is planned, it should be noted that the related NPC positioning functionality is still in development and may not work as intended in the current version.</p>
+</div>
+
 ### Parameters
 
 - `npc` (NPC): The NPC object to modify the schedule for
@@ -138,9 +142,12 @@ end
 ### Example
 
 ```lua
+-- NOTE: This example is for planned functionality that is not yet fully implemented
+-- Additionally, NPC positioning is still in development
+
 function OnPlayerReady()
     -- Find the blacksmith
-    local blacksmith = FindNPC("Blacksmith")
+    local blacksmith = GetNPC("blacksmith_001")
     if blacksmith then
         -- Get blacksmith's normal position
         local position = GetNPCPosition(blacksmith)
@@ -175,6 +182,7 @@ end
 - This function is planned for a future release
 - Modifying NPC schedules can have gameplay implications
 - Some NPCs may have "fixed" schedule entries that cannot be modified
+- The functionality depends on NPC positioning which is still in development
 
 ## ClearNPCSchedule
 

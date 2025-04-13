@@ -1,6 +1,6 @@
 # NPC API
 
-The NPC API provides functions for finding, managing, and interacting with non-player characters (NPCs) in Schedule 1. This includes locating NPCs by name, getting their positions, checking their regions, and more.
+The NPC API provides functions for finding, managing, and interacting with non-player characters (NPCs) in Schedule 1. This includes locating NPCs by ID, getting their positions, checking their regions, and more.
 
 <div class="custom-block warning">
   <p><strong>Implementation Status:</strong> Partially implemented. Basic NPC functions are working, but advanced interaction features are still in development.</p>
@@ -10,14 +10,14 @@ The NPC API provides functions for finding, managing, and interacting with non-p
 
 ### Finding NPCs
 
-- [`FindNPC(npcName)`](./finding.md#findnpc) - Finds and returns an NPC by name
-- [`GetNPC(npcId)`](./finding.md#getnpc) - Gets NPC information by ID
+- [`GetNPC(npcId)`](./finding.md#getnpc) - Gets an NPC object by ID
+- [`GetNPCState(npcId)`](./finding.md#getnpcstate) - Gets NPC information as a Lua table
 - [`GetAllNPCs()`](./finding.md#getallnpcs) - Gets a list of all NPCs in the game
 
 ### NPC Location and Movement
 
 - [`GetNPCPosition(npc)`](./managing.md#getnpcposition) - Gets the position of an NPC
-- [`SetNPCPosition(npc, x, y, z)`](./managing.md#setnpcposition) - Sets the position of an NPC
+- [`SetNPCPosition(npc, x, y, z)`](./managing.md#setnpcposition) - Sets the position of an NPC ⚠️ (In Development)
 - [`GetNPCRegion(npcId)`](./managing.md#getnpcregion) - Gets the region an NPC is currently in
 - [`IsNPCInRegion(npcId, region)`](./managing.md#isnpcinregion) - Checks if an NPC is in a specific region
 - [`GetNPCsInRegion(region)`](./managing.md#getnpcsinregion) - Gets all NPCs in a specific region
@@ -29,8 +29,8 @@ The NPC API provides functions for finding, managing, and interacting with non-p
 
 ```lua
 function Initialize()
-    -- Find a specific NPC by name
-    local npc = FindNPC("Bob")
+    -- Get a specific NPC by ID
+    local npc = GetNPC("bob_001")
     if npc then
         Log("Found NPC: Bob")
         
@@ -39,10 +39,17 @@ function Initialize()
         Log("Bob's position: X=" .. position.x .. ", Y=" .. position.y .. ", Z=" .. position.z)
         
         -- Get the region the NPC is in
-        local region = GetNPCRegion("Bob")
+        local region = GetNPCRegion("bob_001")
         Log("Bob is in region: " .. (region or "Unknown"))
+        
+        -- Get detailed NPC state information
+        local npcState = GetNPCState("bob_001")
+        if npcState then
+            Log("NPC full name: " .. npcState.fullName)
+            Log("NPC is conscious: " .. tostring(npcState.isConscious))
+        end
     else
-        LogWarning("Could not find NPC named Bob")
+        LogWarning("Could not find NPC with ID bob_001")
     end
     
     return true
@@ -81,11 +88,18 @@ end
 
 ### Moving NPCs
 
+<div class="custom-block warning">
+  <p><strong>Development Status:</strong> The SetNPCPosition function is still in development and does not work as intended in the current version.</p>
+</div>
+
 ```lua
-function MoveNPCToPlayer(npcName)
-    local npc = FindNPC(npcName)
+-- NOTE: This example uses SetNPCPosition which is still in development
+-- and may not work correctly in the current version
+
+function MoveNPCToPlayer(npcId)
+    local npc = GetNPC(npcId)
     if not npc then
-        LogError("NPC not found: " .. npcName)
+        LogError("NPC not found: " .. npcId)
         return
     end
     
@@ -97,13 +111,14 @@ function MoveNPCToPlayer(npcName)
         playerPos.y, 
         playerPos.z + 1.0)
         
-    Log("Moved " .. npcName .. " to player's location")
+    Log("Attempted to move NPC with ID " .. npcId .. " to player's location")
+    Log("Note: NPC position setting is still in development and may not work correctly")
 end
 
 -- Usage example
-RegisterCommand("summon", "Summons an NPC to your location", "summon [npcName]", function(args)
+RegisterCommand("summon", "Attempts to summon an NPC to your location", "summon [npcId]", function(args)
     if not args[2] then
-        LogError("Please specify an NPC name")
+        LogError("Please specify an NPC ID")
         return
     end
     
@@ -119,39 +134,48 @@ local npcLastPositions = {}
 
 function Update()
     -- Check positions of important NPCs
-    local importantNPCs = {"Bob", "Alice", "Charlie"}
+    local importantNPCs = {"bob_001", "alice_002", "charlie_003"}
     
-    for _, npcName in ipairs(importantNPCs) do
-        local npc = FindNPC(npcName)
+    for _, npcId in ipairs(importantNPCs) do
+        local npc = GetNPC(npcId)
         if npc then
             local currentPos = GetNPCPosition(npc)
-            local lastPos = npcLastPositions[npcName]
+            local lastPos = npcLastPositions[npcId]
             
             if not lastPos then
                 -- First time seeing this NPC
-                npcLastPositions[npcName] = currentPos
+                npcLastPositions[npcId] = currentPos
             elseif Vector3Distance(lastPos, currentPos) > 5.0 then
                 -- NPC has moved significantly
-                Log(npcName .. " has moved to a new location")
-                local region = GetNPCRegion(npcName)
+                Log("NPC with ID " .. npcId .. " has moved to a new location")
+                local region = GetNPCRegion(npcId)
                 Log("New region: " .. (region or "Unknown"))
-                npcLastPositions[npcName] = currentPos
+                npcLastPositions[npcId] = currentPos
             end
         end
     end
 end
 ```
 
-## Future Enhancements
+## Current Limitations and Future Enhancements
 
-The NPC API is being expanded to include:
+Currently, the NPC API is limited to basic operations:
 
-- NPC interaction (conversations, tasks)
-- NPC relationship management
-- Custom NPC creation
-- NPC schedule modification
-- NPC behavior customization
+- Getting NPC information and position
+- Checking NPC regions
+- Finding NPCs by ID or region
 
-Stay tuned for updates to the API as these features are implemented.
+The SetNPCPosition function is still in development and does not work reliably in the current version.
+
+In future updates, we plan to expand the API to include:
+
+- Improved NPC positioning and movement control
+- NPC schedule access and modification
+- Basic NPC interaction capabilities
+- Additional NPC information attributes
+
+Note that some commonly requested features, such as making NPCs follow players or complex NPC behavior control, are not currently planned for implementation.
+
+Stay tuned for updates to the API as development progresses.
 
 Explore the sections in the sidebar for detailed documentation of each function. 
