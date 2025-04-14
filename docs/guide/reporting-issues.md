@@ -6,7 +6,7 @@ This guide explains how to effectively report issues with ScheduleLua to help th
 
 Before submitting a new issue, please:
 
-1. **Check the known issues**: Review the [known_issues.md](https://github.com/ORIGINAL-OWNER/ScheduleLua/blob/main/ScheduleLua/known_issues.md) file to see if your problem is already documented
+1. **Check the known issues**: Review the [known_issues.md](https://github.com/ifBars/ScheduleLua/blob/main/known_issues.md) file to see if your problem is already documented
 2. **Search existing issues**: Check if someone has already reported the same problem
 3. **Update to the latest version**: Ensure you're using the most recent version of ScheduleLua
 4. **Try simple troubleshooting**: Disable other mods, restart the game, or try a clean install
@@ -15,9 +15,9 @@ Before submitting a new issue, please:
 
 Issues can be reported through:
 
-- GitHub Issues (preferred): [https://github.com/ORIGINAL-OWNER/ScheduleLua/issues](https://github.com/ORIGINAL-OWNER/ScheduleLua/issues)
+- GitHub Issues (preferred): [https://github.com/ifBars/ScheduleLua/issues](https://github.com/ifBars/ScheduleLua/issues)
 - Discord: Join our community Discord and post in the #bug-reports channel
-- Email: For security vulnerabilities only, contact us directly at [email@example.com](mailto:email@example.com)
+- Email: For security vulnerabilities only, contact ifbars directly via Discord dms
 
 ## How to Write a Good Bug Report
 
@@ -89,10 +89,9 @@ end
 Title: Game crashes when accessing Registry items during scene transition
 
 Environment:
-- ScheduleLua v1.2.3
-- Schedule I v1.4.5
-- MelonLoader v0.5.7
-- Windows 10 64-bit
+- ScheduleLua v0.1.0
+- Schedule I v0.3.4
+- MelonLoader v0.7.0
 - No other mods installed
 
 Steps to Reproduce:

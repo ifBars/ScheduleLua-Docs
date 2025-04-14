@@ -11,9 +11,12 @@ This guide will walk you through the process of installing the ScheduleLua beta 
 Before installing ScheduleLua, you'll need:
 
 1. [Schedule 1](https://store.steampowered.com/app/3164500/Schedule_I/) (Steam)
-2. [MelonLoader](https://melonwiki.xyz/) version 0.7.0 or newer
-3. Basic familiarity with file management
-4. Backup of your save files (recommended for beta testing)
+2. The game must be running on the **Mono backend** version, which is available on the "alternate" or "alternate-beta" Steam branches
+   - In Steam, right-click on Schedule 1 → Properties → Betas → Select "alternate" or "alternate-beta"
+   - ScheduleLua is NOT compatible with the main branch or "beta" branch, which use IL2CPP
+3. [MelonLoader](https://melonwiki.xyz/) version 0.7.0 or newer
+4. Basic familiarity with file management
+5. Backup of your save files (recommended for beta testing)
 
 ## Step 1: Install MelonLoader
 
@@ -99,6 +102,7 @@ If MelonLoader isn't loading properly:
 ### ScheduleLua Not Loading
 
 If ScheduleLua isn't loading:
+- Verify that you're using the correct Steam branch ("alternate" or "alternate-beta") as ScheduleLua only works with the Mono version of the game
 - Verify that `ScheduleLua.dll` is in the correct location (`Schedule 1/Mods/`)
 - Check that `moonsharp.dll` is in the correct location (`Schedule 1/UserLibs/`)
 - Look for error messages in the MelonLoader console logs
