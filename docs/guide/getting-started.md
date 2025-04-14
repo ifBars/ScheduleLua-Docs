@@ -43,8 +43,6 @@ function Initialize()
     -- Get and log the current game time
     local timeString = FormatGameTime(GetGameTime())
     Log("Current game time: " .. timeString)
-    
-    return true -- Return true to indicate successful initialization
 end
 
 -- This function is called when game time changes
