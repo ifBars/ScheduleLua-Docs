@@ -128,7 +128,7 @@ end
       <p>Report issues to help improve stability</p>
     </div>
   </a>
-  <a href="https://discord.gg/rV2QSAnqhX" class="community-card">
+  <a href="https://discord.gg/Ab8snpEFDn" class="community-card">
     <div class="community-icon">💬</div>
     <div>
       <h3>Discord Community</h3>

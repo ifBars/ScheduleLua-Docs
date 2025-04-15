@@ -123,7 +123,14 @@ function OfferJob()
             if choiceIndex == 1 then
                 -- Player accepted the job
                 ShowNotification("You accepted the job at QuickMart!")
-                -- Here you might modify the player's job status, etc.
+                -- Save job data if Registry is ready
+                if IsRegistryReady() then
+                    SetValue("playerJob", "QuickMart Cashier")
+                    SetValue("playerHourlyWage", 100)
+                    ShowNotification("Job details saved to your record.")
+                else
+                    ShowNotification("Unable to save job details - Registry not available.")
+                end
             elseif choiceIndex == 2 then
                 -- Player declined the job
                 ShowNotification("You declined the job offer.")
@@ -184,7 +191,7 @@ function ToggleInfoDialogue()
         ShowDialogue("Game Information", "Press TAB to open inventory. Press ESC to open main menu.")
         isDialogueOpen = true
     end
-}
+end
 
 -- Command to toggle info dialogue
 RegisterCommand("info", "Toggles information dialogue", "info", function(args)
@@ -664,9 +671,14 @@ function CreateNotepadWindow()
         local noteContent = GetControlText("noteText")
         
         if noteContent and noteContent ~= "" then
-            -- Here you might save the note to the Registry
-            SetValue("playerNote", noteContent)
-            ShowNotification("Note saved!")
+            -- Check if Registry is ready before saving
+            if IsRegistryReady() then
+                -- Save the note to the Registry
+                SetValue("playerNote", noteContent)
+                ShowNotification("Note saved!")
+            else
+                ShowNotification("Registry not ready, cannot save note.")
+            end
         else
             ShowNotification("Nothing to save.")
         end
@@ -679,15 +691,18 @@ function CreateNotepadWindow()
     end)
     SetControlPosition("closeButton", 250, 230)
     
-    -- Load previous note if exists
-    if HasValue("playerNote") then
-        local savedNote = GetValue("playerNote", "")
-        SetControlText("noteText", savedNote)
+    -- Load previous note if exists (only if Registry is ready)
+    if IsRegistryReady() then
+        -- Get saved note from registry if it exists
+        if HasValue("playerNote") then
+            local savedNote = GetValue("playerNote")
+            SetControlText("noteText", savedNote)
+        end
     end
     
     -- Show the window
     ShowWindow(windowId, true)
-}
+end
 
 -- Command to open notepad
 RegisterCommand("notes", "Opens notepad", "notes", function(args)
@@ -835,7 +850,7 @@ function CreateTimeWatch()
     -- Schedule regular updates
     local function ScheduleUpdate()
         Wait(10.0, function()
-            if windowExists(windowId) then  -- This is a hypothetical function
+            if IsWindowVisible(windowId) then  -- Check if window is still visible
                 UpdateTimeDisplay()
                 ScheduleUpdate()  -- Schedule next update
             end
@@ -1040,209 +1055,3 @@ end)
 
 - `controlId` (string): The unique identifier of the control
 - `visible` (bool): Whether the control should be visible (`true`) or hidden (`false`)
-
-### Returns
-
-None.
-
-### Example
-
-```lua
-function CreateAdvancedSettingsWindow()
-    local windowId = "settings"
-    local showAdvanced = false
-    
-    -- Create window
-    CreateWindow(windowId, "Settings", 200, 200, 400, 350)
-    
-    -- Basic settings
-    AddLabel(windowId, "basicLabel", "Basic Settings:")
-    SetControlPosition("basicLabel", 20, 50)
-    
-    AddLabel(windowId, "volumeLabel", "Volume:")
-    SetControlPosition("volumeLabel", 20, 80)
-    
-    AddTextField(windowId, "volumeField", "100")
-    SetControlPosition("volumeField", 100, 80)
-    
-    AddLabel(windowId, "brightnessLabel", "Brightness:")
-    SetControlPosition("brightnessLabel", 20, 110)
-    
-    AddTextField(windowId, "brightnessField", "50")
-    SetControlPosition("brightnessField", 100, 110)
-    
-    -- Advanced settings (initially hidden)
-    AddLabel(windowId, "advancedLabel", "Advanced Settings:")
-    SetControlPosition("advancedLabel", 20, 170)
-    ShowControl("advancedLabel", false)
-    
-    AddLabel(windowId, "renderDistanceLabel", "Render Distance:")
-    SetControlPosition("renderDistanceLabel", 20, 200)
-    ShowControl("renderDistanceLabel", false)
-    
-    AddTextField(windowId, "renderDistanceField", "1000")
-    SetControlPosition("renderDistanceField", 150, 200)
-    ShowControl("renderDistanceField", false)
-    
-    AddLabel(windowId, "shadowQualityLabel", "Shadow Quality:")
-    SetControlPosition("shadowQualityLabel", 20, 230)
-    ShowControl("shadowQualityLabel", false)
-    
-    AddTextField(windowId, "shadowQualityField", "High")
-    SetControlPosition("shadowQualityField", 150, 230)
-    ShowControl("shadowQualityField", false)
-    
-    -- Toggle button for advanced settings
-    AddButton(windowId, "toggleAdvancedButton", "Show Advanced", function()
-        showAdvanced = not showAdvanced
-        
-        -- Update button text
-        if showAdvanced then
-            SetControlText("toggleAdvancedButton", "Hide Advanced")
-        else
-            SetControlText("toggleAdvancedButton", "Show Advanced")
-        end
-        
-        -- Toggle visibility of advanced controls
-        ShowControl("advancedLabel", showAdvanced)
-        ShowControl("renderDistanceLabel", showAdvanced)
-        ShowControl("renderDistanceField", showAdvanced)
-        ShowControl("shadowQualityLabel", showAdvanced)
-        ShowControl("shadowQualityField", showAdvanced)
-    end)
-    SetControlPosition("toggleAdvancedButton", 20, 140)
-    
-    -- Add save button
-    AddButton(windowId, "saveButton", "Save Settings", function()
-        ShowNotification("Settings saved!")
-        DestroyWindow(windowId)
-    end)
-    SetControlPosition("saveButton", 100, 300)
-    
-    -- Add cancel button
-    AddButton(windowId, "cancelButton", "Cancel", function()
-        DestroyWindow(windowId)
-    end)
-    SetControlPosition("cancelButton", 250, 300)
-    
-    -- Show the window
-    ShowWindow(windowId, true)
-}
-
--- Command to open settings
-RegisterCommand("settings", "Opens settings window", "settings", function(args)
-    CreateAdvancedSettingsWindow()
-end)
-```
-
-### Notes
-
-- Controls are visible by default when created
-- Hiding a control does not free its resources, it just makes it invisible
-- Useful for creating tabbed interfaces or expandable sections
-- If the control doesn't exist, no error is thrown but no action is taken
-
-### DestroyControl
-
-**Signature:** `void DestroyControl(string controlId)`
-
-**Description:** Destroys a UI control, removing it from its parent window.
-
-### Parameters
-
-- `controlId` (string): The unique identifier of the control
-
-### Returns
-
-None.
-
-### Example
-
-```lua
-function CreateDynamicFormWindow()
-    local windowId = "dynamicForm"
-    local fieldCount = 0
-    
-    -- Create window
-    CreateWindow(windowId, "Dynamic Form", 200, 200, 400, 300)
-    
-    -- Function to add a new field
-    local function AddNewField()
-        fieldCount = fieldCount + 1
-        local fieldId = "field_" .. fieldCount
-        
-        -- Add label
-        AddLabel(windowId, fieldId .. "_label", "Field " .. fieldCount .. ":")
-        SetControlPosition(fieldId .. "_label", 20, 50 + (fieldCount * 40))
-        
-        -- Add text field
-        AddTextField(windowId, fieldId, "")
-        SetControlPosition(fieldId, 100, 50 + (fieldCount * 40))
-        SetControlSize(fieldId, 250, 30)
-        
-        -- Add remove button
-        AddButton(windowId, fieldId .. "_remove", "X", function()
-            -- Remove the field controls
-            DestroyControl(fieldId .. "_label")
-            DestroyControl(fieldId)
-            DestroyControl(fieldId .. "_remove")
-            
-            -- No need to decrement fieldCount as positions are based on field IDs
-        end)
-        SetControlPosition(fieldId .. "_remove", 360, 50 + (fieldCount * 40))
-        SetControlSize(fieldId .. "_remove", 20, 20)
-    }
-    
-    -- Add initial field
-    AddNewField()
-    
-    -- Add button to add a new field
-    AddButton(windowId, "addFieldButton", "Add Field", function()
-        if fieldCount < 5 then  -- Limit to 5 fields
-            AddNewField()
-        else
-            ShowNotification("Maximum 5 fields allowed")
-        end
-    end)
-    SetControlPosition("addFieldButton", 20, 250)
-    
-    -- Add submit button
-    AddButton(windowId, "submitButton", "Submit", function()
-        ShowNotification("Form submitted with " .. fieldCount .. " fields")
-        DestroyWindow(windowId)
-    end)
-    SetControlPosition("submitButton", 150, 250)
-    
-    -- Add close button
-    AddButton(windowId, "closeButton", "Close", function()
-        DestroyWindow(windowId)
-    end)
-    SetControlPosition("closeButton", 300, 250)
-    
-    -- Show the window
-    ShowWindow(windowId, true)
-}
-
--- Command to open dynamic form
-RegisterCommand("form", "Opens dynamic form", "form", function(args)
-    CreateDynamicFormWindow()
-end)
-```
-
-### Notes
-
-- This completely removes the control from its parent window
-- Use this for dynamic UI that adds and removes elements at runtime
-- The parent window remains unchanged
-- If the control doesn't exist, no error is thrown but no action is taken
-
-## Best Practices for Custom UI
-
-- **Unity and Consistency**: Maintain a consistent look and feel across all UI elements
-- **Clear Identifiers**: Use descriptive and unique IDs for windows and controls
-- **Resource Management**: Always destroy windows and controls when they're no longer needed
-- **Error Handling**: Check for null or invalid values when working with user input
-- **Responsive Design**: Position and size UI elements to work well with different screen resolutions
-- **User Feedback**: Provide clear feedback for user actions (e.g., notifications on button clicks)
-- **Input Validation**: Validate user input before processing (e.g., check for empty fields)
-- **Window Management**: Avoid having too many windows open simultaneously 

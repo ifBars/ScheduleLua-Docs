@@ -250,7 +250,7 @@ If you encounter bugs or have suggestions:
 1. Check if the issue is already known in this documentation
 2. Test with the latest beta version
 3. Provide a minimal example script that reproduces the issue
-4. Report the issue through our [GitHub Issues](https://github.com/schedulelua/issues) or Discord
+4. Report the issue through our [GitHub Issues](https://github.com/schedulelua/issues) or [Discord](https://discord.gg/Ab8snpEFDn)
 
 ## Credits and Acknowledgments
 

@@ -103,7 +103,7 @@ Your Lua scripts can implement several lifecycle hooks that are called at specif
 ScheduleLua is an open-source project in active development. If you'd like to contribute:
 
 - Check the [GitHub repository](https://github.com/ifBars/ScheduleLua) for current issues and tasks
-- Join the [Schedule 1 Modding Discord](https://discord.gg/rV2QSAnqhX) to discuss development
+- Join the [ScheduleLua Discord](https://discord.gg/Ab8snpEFDn) to discuss development
 - Report bugs or suggest improvements through [GitHub Issues](https://github.com/ifBars/ScheduleLua/issues)
 
 For detailed information about each function and module, explore the sidebar navigation. 

@@ -26,7 +26,7 @@ module.exports = {
         items: [
           { text: 'GitHub Repository', link: 'https://github.com/ifBars/ScheduleLua' },
           { text: 'Issue Tracker', link: 'https://github.com/ifBars/ScheduleLua/issues' },
-          { text: 'Discord Community', link: 'https://discord.gg/rV2QSAnqhX' },
+          { text: 'Discord Community', link: 'https://discord.gg/Ab8snpEFDn' },
         ]
       }
     ],
@@ -172,7 +172,7 @@ module.exports = {
     // Social links
     socialLinks: [
       { icon: 'github', link: 'https://github.com/ifBars/ScheduleLua' },
-      { icon: 'discord', link: 'https://discord.gg/rV2QSAnqhX' }
+      { icon: 'discord', link: 'https://discord.gg/Ab8snpEFDn' }
     ],
     
     // Footer

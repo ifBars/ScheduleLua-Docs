@@ -118,7 +118,7 @@ If your scripts aren't loading:
 
 If you encounter issues not covered in this guide:
 - Check the [GitHub repository issues](https://github.com/ifBars/ScheduleLua/issues) for similar problems
-- Join the [Schedule 1 Modding Discord](https://discord.gg/rV2QSAnqhX)
+- Join the [ScheduleLua Discord](https://discord.gg/Ab8snpEFDn)
 - Create a detailed bug report on [GitHub]() with logs and system information
 
 ## Next Steps

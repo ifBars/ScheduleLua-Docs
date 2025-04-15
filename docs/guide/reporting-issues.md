@@ -16,8 +16,7 @@ Before submitting a new issue, please:
 Issues can be reported through:
 
 - GitHub Issues (preferred): [https://github.com/ifBars/ScheduleLua/issues](https://github.com/ifBars/ScheduleLua/issues)
-- Discord: Join our community Discord and post in the #bug-reports channel
-- Email: For security vulnerabilities only, contact ifbars directly via Discord dms
+- Discord: For security vulnerabilities only, contact ifbars directly via Discord dms
 
 ## How to Write a Good Bug Report
 
