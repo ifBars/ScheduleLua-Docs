@@ -165,13 +165,10 @@ Most example scripts located in the `Resources` directory are fully functional a
 
 | Function | Status | Notes |
 |---------|--------|-------|
-| SetValue(key, value) | ✅ | Stores a value with the specified key |
-| GetValue(key, defaultValue) | ✅ | Retrieves a value by key, returns default if not found |
-| DeleteValue(key) | ✅ | Removes a value from the registry |
-| HasValue(key) | ✅ | Checks if a key exists in the registry |
-| ClearValues() | ✅ | Clears all values in the registry |
-| SaveData() | ✅ | Saves registry data to disk |
-| LoadData() | ✅ | Loads registry data from disk |
+| SetValue(key, value) | 📅 | Stores a value with the specified key |
+| GetValue(key, defaultValue) | 📅 | Retrieves a value by key, returns default if not found |
+| DeleteValue(key) | 📅 | Removes a value from the registry |
+| HasValue(key) | 📅 | Checks if a key exists in the registry |
 | IsRegistryReady() | ✅ | Checks if the registry system is ready |
 | OnRegistryReady(callback) | ✅ | Registers a callback for when registry is ready |
 

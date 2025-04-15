@@ -125,8 +125,6 @@ function OfferJob()
                 ShowNotification("You accepted the job at QuickMart!")
                 -- Save job data if Registry is ready
                 if IsRegistryReady() then
-                    SetValue("playerJob", "QuickMart Cashier")
-                    SetValue("playerHourlyWage", 100)
                     ShowNotification("Job details saved to your record.")
                 else
                     ShowNotification("Unable to save job details - Registry not available.")
@@ -673,8 +671,7 @@ function CreateNotepadWindow()
         if noteContent and noteContent ~= "" then
             -- Check if Registry is ready before saving
             if IsRegistryReady() then
-                -- Save the note to the Registry
-                SetValue("playerNote", noteContent)
+                -- Save the note to the Registry once implemented
                 ShowNotification("Note saved!")
             else
                 ShowNotification("Registry not ready, cannot save note.")
@@ -693,11 +690,7 @@ function CreateNotepadWindow()
     
     -- Load previous note if exists (only if Registry is ready)
     if IsRegistryReady() then
-        -- Get saved note from registry if it exists
-        if HasValue("playerNote") then
-            local savedNote = GetValue("playerNote")
-            SetControlText("noteText", savedNote)
-        end
+        -- Get saved note from registry if it exists once implemented
     end
     
     -- Show the window
