@@ -28,7 +28,7 @@ See the [Development Status](/guide/development-status) page for more detailed i
 ## API Categories
 
 ### [Core API](./core/logging.md) - ✅ Stable
-Core functionality including logging, commands, timing, and general game object manipulation.
+Core functionality including logging, commands, timing, general game object manipulation, and [global variables](./core/globals.md).
 
 ### [Player API](./player/) - 🔄 Partial
 Functions for interacting with the player character, including movement, inventory, stats, and state.

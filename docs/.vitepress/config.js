@@ -73,6 +73,7 @@ module.exports = {
             { text: 'Commands', link: '/api/core/commands' },
             { text: 'Timing', link: '/api/core/timing' },
             { text: 'GameObjects', link: '/api/core/gameobjects' },
+            { text: 'Globals', link: '/api/core/globals' },
           ]
         },
         {
