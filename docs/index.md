@@ -20,11 +20,6 @@ hero:
       link: https://github.com/ifBars/ScheduleLua
 
 features:
-  - icon: 🚧
-    title: Development Status
-    details: ScheduleLua is currently in early development. The API is subject to change and some features may not be fully implemented yet.
-    link: /guide/development-status
-    linkText: Current Status
   - icon: 🔌
     title: Game Integration
     details: Access player data, NPCs, and game systems through an evolving API that will continue to expand as Schedule 1 develops.
@@ -43,7 +38,7 @@ features:
   - icon: 🤝
     title: Community Driven
     details: Contribute to the development of ScheduleLua by testing, reporting issues, or submitting code improvements.
-    link: https://github.com/ifBars/ScheduleLua
+    link: https://discord.gg/Ab8snpEFDn
     linkText: Contribute
 ---
 
