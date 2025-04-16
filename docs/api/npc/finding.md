@@ -4,7 +4,7 @@ This section covers the functions used to find and get information about NPCs in
 
 ## GetNPC
 
-**Signature:** `NPC GetNPC(string npcId)`
+**Signature:** `NPCProxy GetNPC(string npcId)`
 
 **Description:** Gets an NPC object by ID. This function is the primary way to locate a specific NPC in the game world.
 
@@ -14,7 +14,7 @@ This section covers the functions used to find and get information about NPCs in
 
 ### Returns
 
-An NPC object if found, or `nil` if no NPC with the given ID exists.
+An NPCProxy object if found, or `nil` if no NPC with the given ID exists.
 
 ### Example
 
@@ -24,6 +24,8 @@ function SayHelloToNPC(npcId)
     
     if npc then
         Log("Found NPC with ID: " .. npcId)
+        Log("NPC full name: " .. npc.FullName)
+        
         -- You can now use this NPC object with other functions
         local position = GetNPCPosition(npc)
         Log("NPC is at position: " .. position.x .. ", " .. position.y .. ", " .. position.z)
@@ -38,9 +40,10 @@ SayHelloToNPC("doris_lubbin")
 
 ### Notes
 
-- The NPC object returned can be used with other NPC functions like `GetNPCPosition`
+- The NPCProxy object returned can be used with other NPC functions like `GetNPCPosition`
 - NPC IDs are case-sensitive
 - Performance tip: Cache the NPC object if you need to use it repeatedly
+- The returned object is an NPCProxy, which provides controlled access to NPC properties
 
 ## GetNPCState
 
@@ -111,18 +114,19 @@ DisplayNPCInfo("bob_001")
 
 - This function is useful for getting detailed information without needing to use multiple separate function calls
 - The table structure may be expanded in future updates with additional NPC properties
+- As an alternative, you can access these properties directly from the NPCProxy returned by GetNPC, for example: `npc.FullName` or `npc.IsConscious`
 
 ## GetNPCPosition
 
 **Status:** 🔄 Partial
 
-**Signature:** `Vector3Proxy GetNPCPosition(NPC npc)`
+**Signature:** `Vector3Proxy GetNPCPosition(NPCProxy npc)`
 
 **Description:** Gets the position of an NPC in the game world.
 
 ### Parameters
 
-- `npc` (NPC): An NPC object reference (from `GetNPC`)
+- `npc` (NPCProxy): An NPCProxy object reference (from `GetNPC`)
 
 ### Returns
 
@@ -204,6 +208,7 @@ CheckNPCLocation("bob_001")
 
 - Regions are designated areas in the game world with specific names
 - This is more efficient than getting the NPC's position and then checking what region that position is in
+- Alternatively, you can access the region directly from an NPCProxy: `local region = npc.Region`
 
 ## GetNPCsInRegion
 

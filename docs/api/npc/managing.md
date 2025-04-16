@@ -8,13 +8,13 @@ These functions allow you to manage and modify NPCs in the game world.
 
 ## GetNPCPosition
 
-**Signature:** `Vector3Proxy GetNPCPosition(NPC npc)`
+**Signature:** `Vector3Proxy GetNPCPosition(NPCProxy npc)`
 
-**Description:** Gets the current position of an NPC in the game world as a Vector3 object.
+**Description:** Gets the current position of an NPC in the game world as a Vector3Proxy object.
 
 ### Parameters
 
-- `npc` (NPC): An NPC object obtained from `GetNPC()`
+- `npc` (NPCProxy): An NPCProxy object obtained from `GetNPC()`
 
 ### Returns
 
@@ -41,20 +41,29 @@ function GetDistanceToNPC(npcId)
     return distance
 end
 
--- Usage
-RegisterCommand("distance", "Shows distance to an NPC", "distance [npcId]", function(args)
-    if not args[2] then
-        LogError("Please specify an NPC ID")
-        return
-    end
+-- Register command after the console is ready
+function OnConsoleReady()
+    RegisterCommand(
+        "npc_distance",  -- Command name (avoid conflicting with built-in commands)
+        "Shows distance to an NPC", -- Description
+        "npc_distance <npcId>", -- Usage example
+        function(args)
+            if not args[2] then
+                LogError("Please specify an NPC ID")
+                return
+            end
+            
+            GetDistanceToNPC(args[2])
+        end
+    )
     
-    GetDistanceToNPC(args[2])
-end)
+    Log("NPC distance command registered successfully")
+end
 ```
 
 ### Notes
 
-- This function requires an NPC object from `GetNPC()`, not just an NPC ID
+- This function requires an NPCProxy object from `GetNPC()`, not just an NPC ID
 - The returned Vector3Proxy has x, y, and z properties
 - Returns (0,0,0) for invalid NPCs rather than throwing an error
 
@@ -62,17 +71,17 @@ end)
 
 **Status:** ⚠️ In Development
 
-**Signature:** `void SetNPCPosition(NPC npc, float x, float y, float z)`
+**Signature:** `void SetNPCPosition(NPCProxy npc, float x, float y, float z)`
 
 **Description:** Sets the position of an NPC to the specified coordinates in the game world.
 
 <div class="custom-block danger">
-  <p><strong>Important Notice:</strong> This function is still in active development and does not work as intended in the current version. NPC position setting may not behave correctly or may have no effect.</p>
+  <p><strong>Important Notice:</strong> This function is still in active development and might not work as intended in the current version. NPC position setting may not behave correctly or may have no effect.</p>
 </div>
 
 ### Parameters
 
-- `npc` (NPC): An NPC object obtained from `GetNPC()`
+- `npc` (NPCProxy): An NPCProxy object obtained from `GetNPC()`
 - `x` (float): The X coordinate
 - `y` (float): The Y coordinate (height)
 - `z` (float): The Z coordinate
@@ -107,16 +116,31 @@ function TeleportNPCToPlayer(npcId, offset)
     return true
 end
 
--- Usage
-RegisterCommand("tpnpc", "Attempts to teleport an NPC to you", "tpnpc [npcId] [offset]", function(args)
-    if not args[2] then
-        LogError("Please specify an NPC ID")
-        return
-    end
+-- Register command after the console is ready
+function OnConsoleReady()
+    RegisterCommand(
+        "npc_teleport",  -- Command name with prefix to avoid conflicts
+        "Attempts to teleport an NPC to your location", 
+        "npc_teleport <npcId> [offset]", 
+        function(args)
+            if not args[2] then
+                LogError("Please specify an NPC ID")
+                return
+            end
+            
+            local offset = tonumber(args[3]) or 1.0
+            local success = TeleportNPCToPlayer(args[2], offset)
+            
+            if success then
+                Log("Teleport command executed successfully")
+            else
+                LogError("Failed to teleport NPC")
+            end
+        end
+    )
     
-    local offset = tonumber(args[3]) or 1.0
-    TeleportNPCToPlayer(args[2], offset)
-end)
+    Log("NPC teleport command registered successfully")
+end
 ```
 
 ### Notes
@@ -137,13 +161,13 @@ The following example shows how you might arrange NPCs in a circle formation, wh
 
 ```lua
 -- NOTE: This is a conceptual example that depends on SetNPCPosition
--- which is still in development and does not work as intended
+-- which is still in development and might not work as intended
 
 function ArrangeNPCsInCircle(npcIds, centerX, centerZ, radius)
     -- Check if we have a valid list of NPCs
     if not npcIds or #npcIds == 0 then
         LogError("No NPCs specified for circle formation")
-        return
+        return false
     end
     
     LogWarning("Note: The SetNPCPosition function is still in development and may not work correctly")
@@ -178,6 +202,40 @@ function ArrangeNPCsInCircle(npcIds, centerX, centerZ, radius)
     end
     
     Log("Attempted to arrange " .. #npcIds .. " NPCs in a circle formation")
+    return true
+end
+
+-- Register command only after the console is ready
+function OnConsoleReady()
+    RegisterCommand(
+        "npc_formation_circle",
+        "Arranges NPCs in a circle around the player or specified position",
+        "npc_formation_circle <npcId1,npcId2,...> [radius]",
+        function(args)
+            if not args[2] then
+                LogError("Please specify NPC IDs separated by commas")
+                return
+            end
+            
+            -- Parse the comma-separated list of NPC IDs
+            local npcIds = {}
+            for id in string.gmatch(args[2], "([^,]+)") do
+                table.insert(npcIds, id)
+            end
+            
+            -- Get optional radius
+            local radius = tonumber(args[3]) or 5.0
+            
+            -- Use player position as center
+            local result = ArrangeNPCsInCircle(npcIds, nil, nil, radius)
+            
+            if not result then
+                LogError("Failed to create NPC formation")
+            end
+        end
+    )
+    
+    Log("NPC formation command registered successfully")
 end
 ```
 
@@ -191,38 +249,11 @@ end
 - **Performance awareness**: Manipulating many NPCs simultaneously can impact performance
 - **Be aware of limitations**: Currently, NPC positioning functions are still in development and may not work reliably
 
-## Upcoming NPC Management Functions
+## Best Practices for Command Registration
 
-The following functions are planned for future updates:
-
-### SpawnNPC
-
-**Status:** 📝 Planned
-
-**Signature:** `userdata SpawnNPC(string npcTemplate, number x, number y, number z)`
-
-**Description:** Spawns a new NPC of the specified template at the given coordinates.
-
-### RemoveNPC
-
-**Status:** 📝 Planned
-
-**Signature:** `boolean RemoveNPC(userdata npc)`
-
-**Description:** Removes an NPC from the game world.
-
-### SetNPCBehavior
-
-**Status:** 📝 Planned
-
-**Signature:** `void SetNPCBehavior(userdata npc, string behaviorType)`
-
-**Description:** Changes an NPC's current behavior to the specified type.
-
-### SetNPCSchedule
-
-**Status:** 📝 Planned
-
-**Signature:** `void SetNPCSchedule(userdata npc, table scheduleData)`
-
-**Description:** Sets a custom schedule for an NPC to follow. 
+- **Register commands in `OnConsoleReady`**: Always register commands after the console is ready to avoid conflicts with native game commands
+- **Use prefixes for commands**: Consider using prefixes like `npc_` to avoid conflicts with built-in game commands
+- **Provide clear descriptions**: Include descriptive help text and usage examples to make commands user-friendly
+- **Include error handling**: Check for missing arguments and provide helpful error messages
+- **Return feedback**: Let users know if the command succeeded or failed
+- **Check command existence**: Avoid registering commands that might already exist

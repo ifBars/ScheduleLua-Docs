@@ -22,7 +22,7 @@ This page provides a transparent overview of what's currently working in Schedul
 |---------|--------|-------|
 | Script Loading | ✅ | Scripts are properly loaded from the Scripts directory |
 | Error Handling | 🟡 | Basic error reporting works, advanced diagnostics planned |
-| Hot Reloading | ✅ | Scripts can be manually reloaded with the `luareload` command or automatically reloaded upon file change when the `EnableHotReload` MelonPreference is enabled |
+| Hot Reloading | ✅ | Scripts & Mods can be manually reloaded with the `luareload` command or automatically reloaded upon file change when the `EnableHotReload` MelonPreference is enabled |
 | Lifecycle Event Hooks | ✅ | Core events like Initialize(), Update(), and Shutdown() function properly |
 | Performance Profiling | 🔄 | Basic performance monitoring is in development |
 | Debugging Tools | 📅 | Comprehensive debugging utilities planned |
@@ -74,7 +74,6 @@ Most example scripts located in the `Resources` directory are fully functional a
 
 | Function | Status | Notes |
 |---------|--------|-------|
-| GetPlayer() | ✅ | Returns the player object |
 | GetPlayerState() | ✅ | Returns a table with comprehensive player information |
 | GetPlayerPosition() | ✅ | Returns the player's position as a Vector3 |
 | SetPlayerPosition(x, y, z) | ✅ | Sets the player's position |
@@ -83,9 +82,8 @@ Most example scripts located in the `Resources` directory are fully functional a
 | GetPlayerHealth() | ✅ | Returns the player's current health |
 | SetPlayerHealth(amount) | ✅ | Sets the player's health |
 | GetPlayerRegion() | ✅ | Returns the name of the region the player is in |
-| IsPlayerInRegion(regionName) | ✅ | Checks if the player is in the specified region |
-| GetPlayerName() | ✅ | Returns the player's name |
-| GetPlayerMovementState() | ✅ | Returns the player's current movement state |
+| GetPlayerMovementSpeed() | ✅ | Returns the player's current movement speed |
+| SetPlayerMovementSpeed(speed) | ✅ | Sets the player's current movement speed |
 
 ### Economy API
 
@@ -95,13 +93,15 @@ Most example scripts located in the `Resources` directory are fully functional a
 | AddPlayerCash(amount) | ✅ | Adds the specified amount to player's cash |
 | RemovePlayerCash(amount) | ✅ | Removes the specified amount from player's cash |
 | GetPlayerOnlineBalance() | ✅ | Returns the player's online bank balance |
-| AddOnlineBalance(amount) | 🟡 | Adds to player's online balance but UI doesn't update |
-| RemoveOnlineBalance(amount) | 🟡 | Removes from player's online balance but UI doesn't update |
+| AddOnlineBalance(amount) | ✅ | Adds to player's online balance but UI doesn't update |
+| RemoveOnlineBalance(amount) | ✅ | Removes from player's online balance but UI doesn't update |
 | GetLifetimeEarnings() | ✅ | Returns the player's lifetime earnings |
 | GetNetWorth() | ✅ | Returns the player's total net worth |
 | FormatMoney(amount) | ✅ | Formats a money amount as a string |
 | CheckIfCanAfford(amount) | ✅ | Checks if the player can afford the specified amount |
 | CreateTransaction(description, price, quantity, useOnline) | 🔄 | Creates and processes a transaction |
+| GetATMDepositLimit() | ✅ | Gets the ATM deposit limit |
+| SetATMDepositLimit(amount) | ✅ | Sets the ATM deposit limit |
 
 ### GameObject API
 
@@ -115,8 +115,8 @@ Most example scripts located in the `Resources` directory are fully functional a
 
 | Function | Status | Notes |
 |---------|--------|-------|
-| GetInventorySlotCount() | 🟡 | Returns the number of inventory slots |
-| GetInventoryItemAt(slotIndex) | 🟡 | Returns the item at specified inventory slot |
+| GetInventorySlotCount() | ✅ | Returns the number of inventory slots |
+| GetInventoryItemAt(slotIndex) | ✅ | Returns the item at specified inventory slot |
 | AddItemToInventory(itemName, amount) | 🟡 | Adds an item to player's inventory |
 | RemoveItemFromInventory(itemName, amount) | 🟡 | Removes an item from player's inventory |
 
@@ -124,7 +124,6 @@ Most example scripts located in the `Resources` directory are fully functional a
 
 | Function | Status | Notes |
 |---------|--------|-------|
-| FindNPC(npcName) | 🔄 | Finds an NPC by name |
 | GetNPC(npcId) | ✅ | Gets NPC data by ID |
 | GetNPCPosition(npc) | ✅ | Gets an NPC's position |
 | SetNPCPosition(npc, x, y, z) | 🔄 | Sets an NPC's position (Untested) |
@@ -165,10 +164,6 @@ Most example scripts located in the `Resources` directory are fully functional a
 
 | Function | Status | Notes |
 |---------|--------|-------|
-| SetValue(key, value) | 📅 | Stores a value with the specified key |
-| GetValue(key, defaultValue) | 📅 | Retrieves a value by key, returns default if not found |
-| DeleteValue(key) | 📅 | Removes a value from the registry |
-| HasValue(key) | 📅 | Checks if a key exists in the registry |
 | IsRegistryReady() | ✅ | Checks if the registry system is ready |
 | OnRegistryReady(callback) | ✅ | Registers a callback for when registry is ready |
 
@@ -178,14 +173,14 @@ Most example scripts located in the `Resources` directory are fully functional a
 |---------|--------|-------|
 | GetItem(itemId) | ✅ | Gets item definition by ID |
 | DoesItemExist(itemId) | ✅ | Checks if an item exists in the registry |
-| GetItemCategories() | ✅ | Gets a list of all item categories |
-| GetItemsInCategory(categoryName) | ✅ | Gets all items in a category |
-| GetAllItems() | ✅ | Gets a list of all available items |
-| CreateItem(id, name, description, category, stackLimit) | ✅ | Creates a new item definition |
-| CreateQualityItem(id, name, description, category, stackLimit, defaultQuality) | ✅ | Creates a quality item |
-| CreateIntegerItem(id, name, description, category, stackLimit, defaultValue) | ✅ | Creates an integer item |
+| GetItemCategories() | 🟡 | Gets a list of all item categories |
+| GetItemsInCategory(categoryName) | 🟡 | Gets all items in a category |
+| GetAllItems() | 🔄 | Gets a list of all available items |
+| CreateItem(id, name, description, category, stackLimit) | 🔄 | Creates a new item definition |
+| CreateQualityItem(id, name, description, category, stackLimit, defaultQuality) | 🔄 | Creates a quality item |
+| CreateIntegerItem(id, name, description, category, stackLimit, defaultValue) | 🔄 | Creates an integer item |
 | ModifyItem(itemId, properties) | ✅ | Modifies an existing item's properties |
-| CreateItemInstance(itemId, quantity) | ✅ | Creates an instance of an item |
+| CreateItemInstance(itemId, quantity) | 🔄 | Creates an instance of an item |
 | AddItemToPlayerInventory(itemInstance) | ✅ | Adds an item instance to player inventory |
 
 ### Vector/Math API
@@ -219,16 +214,17 @@ Most example scripts located in the `Resources` directory are fully functional a
 | Shutdown() | ✅ | Called when script is unloaded |
 | OnPlayerReady() | ✅ | Called when player character is fully initialized |
 | OnConsoleReady() | ✅ | Called when console is fully loaded |
+| OnRegistryReady() | ✅ | Called when registry system is fully loaded |
 | OnSceneLoaded(sceneName) | ✅ | Called when a scene is loaded |
-| OnGameDayChanged(dayName, dayIndex) | ✅ | Called when game day changes |
-| OnGameTimeChanged(timeValue) | ✅ | Called when game time changes |
+| OnDayChanged(dayName, dayIndex) | ✅ | Called when game day changes |
+| OnTimeChanged(timeValue) | ✅ | Called when game time changes |
 | OnPlayerHealthChanged(oldValue, newValue) | ✅ | Called when player health changes |
 | OnPlayerEnergyChanged(oldValue, newValue) | ✅ | Called when player energy changes |
-| OnSleepStart() | ✅ | Called when player goes to sleep |
-| OnSleepEnd() | ✅ | Called when player wakes up |
-| OnInventoryChanged() | 🔄 | Called when inventory changes |
+| OnSleepStart() | 🟡 | Called when player goes to sleep |
+| OnSleepEnd() | 🟡 | Called when player wakes up |
+| OnItemAdded() | 🔄 | Called when inventory changes |
+| OnItemRemoved() | 🔄 | Called when inventory changes |
 | OnPlayerMoneyChanged() | ✅ | Called when player money changes |
-| OnPlayerRegionChanged() | ✅ | Called when player enters a new region |
 | OnCurfewEnabled() | ✅ | Called when curfew system is enabled |
 | OnCurfewDisabled() | ✅ | Called when curfew system is disabled |
 | OnCurfewWarning() | ✅ | Called when curfew warning is issued |

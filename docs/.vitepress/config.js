@@ -55,6 +55,14 @@ module.exports = {
           ]
         },
         {
+          text: 'Mod System',
+          collapsed: false,
+          items: [
+            { text: 'Mod System Overview', link: '/guide/mod-system' },
+            { text: 'Mod Imports and Exports', link: '/guide/mod-functions' }
+          ]
+        },
+        {
           text: 'Contributing',
           collapsed: false,
           items: [
@@ -74,6 +82,7 @@ module.exports = {
             { text: 'Timing', link: '/api/core/timing' },
             { text: 'GameObjects', link: '/api/core/gameobjects' },
             { text: 'Globals', link: '/api/core/globals' },
+            { text: 'Mod System', link: '/api/mod/' },
           ]
         },
         {
@@ -153,6 +162,7 @@ module.exports = {
             { text: 'Registry Example', link: '/examples/registry' },
             { text: 'Economy Example', link: '/examples/economy' },
             { text: 'Curfew Example', link: '/examples/curfew' },
+            { text: 'Mod System Example', link: '/examples/mod-system' },
           ]
         },
         {

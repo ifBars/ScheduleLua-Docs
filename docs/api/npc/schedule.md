@@ -10,13 +10,13 @@ These functions allow you to access and manipulate NPC schedules, including thei
 
 **Status:** 📅 Planned
 
-**Signature:** `table GetNPCSchedule(NPC npc)`
+**Signature:** `table GetNPCSchedule(NPCProxy npc)`
 
 **Description:** Gets the daily schedule of an NPC, showing their planned activities and locations throughout the day.
 
 ### Parameters
 
-- `npc` (NPC): The NPC object to get the schedule for
+- `npc` (NPCProxy): The NPCProxy object to get the schedule for
 
 ### Returns
 
@@ -26,7 +26,7 @@ A table containing the NPC's daily schedule with entries for each time period:
   - `endTime` (number): The game time when this activity ends
   - `activity` (string): The name of the activity (e.g., "Working", "Sleeping", "Eating")
   - `location` (string): The region or location name for this activity
-  - `position` (Vector3): The target position for this activity
+  - `position` (Vector3Proxy): The target position for this activity
 
 ### Example
 
@@ -70,13 +70,13 @@ end
 
 **Status:** 📅 Planned
 
-**Signature:** `table GetNPCCurrentActivity(NPC npc)`
+**Signature:** `table GetNPCCurrentActivity(NPCProxy npc)`
 
 **Description:** Gets the current activity that the NPC is engaged in.
 
 ### Parameters
 
-- `npc` (NPC): The NPC object to get the current activity for
+- `npc` (NPCProxy): The NPCProxy object to get the current activity for
 
 ### Returns
 
@@ -85,7 +85,7 @@ A table containing information about the NPC's current activity:
 - `location` (string): The region or location name for this activity
 - `startTime` (number): When this activity started
 - `endTime` (number): When this activity will end
-- `position` (Vector3): The target position for this activity
+- `position` (Vector3Proxy): The target position for this activity
 
 ### Example
 
@@ -119,7 +119,7 @@ end
 
 **Status:** 📅 Planned
 
-**Signature:** `boolean SetNPCScheduleEntry(NPC npc, number time, string activity, string location, Vector3 position)`
+**Signature:** `boolean SetNPCScheduleEntry(NPCProxy npc, number time, string activity, string location, Vector3Proxy position)`
 
 **Description:** Adds or modifies a schedule entry for an NPC.
 
@@ -129,11 +129,11 @@ end
 
 ### Parameters
 
-- `npc` (NPC): The NPC object to modify the schedule for
+- `npc` (NPCProxy): The NPCProxy object to modify the schedule for
 - `time` (number): The game time when this activity should start
 - `activity` (string): The name of the activity
 - `location` (string): The region or location name for this activity
-- `position` (Vector3): The target position for this activity
+- `position` (Vector3Proxy): The target position for this activity
 
 ### Returns
 
@@ -188,13 +188,13 @@ end
 
 **Status:** 📅 Planned
 
-**Signature:** `boolean ClearNPCSchedule(NPC npc)`
+**Signature:** `boolean ClearNPCSchedule(NPCProxy npc)`
 
 **Description:** Clears all schedule entries for an NPC, allowing you to build a new schedule from scratch.
 
 ### Parameters
 
-- `npc` (NPC): The NPC object to clear the schedule for
+- `npc` (NPCProxy): The NPCProxy object to clear the schedule for
 
 ### Returns
 

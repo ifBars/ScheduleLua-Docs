@@ -30,6 +30,11 @@ features:
     details: Access player data, NPCs, and game systems through an evolving API that will continue to expand as Schedule 1 develops.
     link: /api/
     linkText: Available APIs
+  - icon: 📦
+    title: Mod System
+    details: Create modular Lua mods with dependencies, versioning, and function sharing between mods.
+    link: /guide/mod-system
+    linkText: Mod System Guide
   - icon: 📝
     title: Lua Examples
     details: ScheduleLua provides multiple example scripts for you to test with.
@@ -67,13 +72,13 @@ ScheduleLua is an in-development modding framework that aims to bridge Schedule 
   </div>
   <div class="quick-start-card">
     <div class="step-number">3</div>
-    <h3><a href="/ScheduleLua-Docs/api/">API Reference</a></h3>
-    <p>Explore currently implemented functionality</p>
+    <h3><a href="/ScheduleLua-Docs/guide/mod-system">Mod System</a></h3>
+    <p>Create modular mods with dependencies</p>
   </div>
   <div class="quick-start-card">
     <div class="step-number">4</div>
-    <h3><a href="https://github.com/ifBars/ScheduleLua/issues">Report Issues</a></h3>
-    <p>Help improve ScheduleLua by reporting bugs</p>
+    <h3><a href="/ScheduleLua-Docs/api/">API Reference</a></h3>
+    <p>Explore currently implemented functionality</p>
   </div>
 </div>
 
@@ -110,6 +115,17 @@ function Shutdown()
     Log("Basic Example Script shutdown")
 end
 ```
+
+## New Mod System
+
+ScheduleLua now features a modular mod system that allows you to:
+
+- Create folder-based mods with a manifest file
+- Define dependencies between mods
+- Export and import functions between mods
+- Organize your code across multiple files
+
+Learn more in the [Mod System Guide](/ScheduleLua-Docs/guide/mod-system).
 
 ## Join the Community
 
@@ -272,16 +288,17 @@ end
   color: #ed8936;
 }
 
-/* Community Section */
+/* Community Grid */
 .community-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 16px;
+  margin-top: var(--section-gap);
 }
 
 .community-card {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 16px;
   padding: 20px;
   background-color: var(--vp-c-bg-soft);
@@ -298,28 +315,21 @@ end
 }
 
 .community-icon {
-  font-size: 24px;
-  flex-shrink: 0;
+  font-size: 1.5rem;
+}
+
+.community-card div:last-child {
+  flex: 1;
 }
 
 .community-card h3 {
-  margin: 0 0 8px 0;
+  margin: 0 0 4px 0;
+  font-size: 1.1rem;
 }
 
 .community-card p {
   margin: 0;
   font-size: 0.9em;
   opacity: 0.9;
-}
-
-@media (max-width: 640px) {
-  .community-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .quick-start-grid,
-  .api-grid {
-    grid-template-columns: 1fr;
-  }
 }
 </style>

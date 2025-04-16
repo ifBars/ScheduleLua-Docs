@@ -23,6 +23,17 @@ The NPC API provides functions for finding, managing, and interacting with non-p
 - [`GetNPCsInRegion(region)`](./managing.md#getnpcsinregion) - Gets all NPCs in a specific region
 - [`GetAllNPCRegions()`](./managing.md#getallnpcregions) - Gets a list of all regions that contain NPCs
 
+## NPCProxy Type
+
+To improve compatibility with the Lua scripting system, NPCs are now wrapped in an `NPCProxy` type that exposes only the necessary properties and functions while hiding complex internal implementation details. This provides better stability, especially on IL2CPP/AOT platforms once ScheduleLua supports it.
+
+The `NPCProxy` type provides these properties:
+- `ID` - The unique identifier of the NPC
+- `FullName` - The NPC's full name
+- `IsConscious` - Whether the NPC is currently conscious
+- `Region` - The region the NPC is currently in
+- `IsMoving` - Whether the NPC is currently moving
+
 ## Example Usage
 
 ### Basic NPC Lookup and Information
@@ -100,7 +111,7 @@ function MoveNPCToPlayer(npcId)
     local npc = GetNPC(npcId)
     if not npc then
         LogError("NPC not found: " .. npcId)
-        return
+        return false
     end
     
     local playerPos = GetPlayerPosition()
@@ -113,17 +124,30 @@ function MoveNPCToPlayer(npcId)
         
     Log("Attempted to move NPC with ID " .. npcId .. " to player's location")
     Log("Note: NPC position setting is still in development and may not work correctly")
+    return true
 end
 
--- Usage example
-RegisterCommand("summon", "Attempts to summon an NPC to your location", "summon [npcId]", function(args)
-    if not args[2] then
-        LogError("Please specify an NPC ID")
-        return
-    end
+-- Properly register command after console is ready
+function OnConsoleReady()
+    RegisterCommand(
+        "npc_summon",
+        "Attempts to summon an NPC to your location",
+        "npc_summon <npcId>",
+        function(args)
+            if not args[2] then
+                LogError("Please specify an NPC ID")
+                return
+            end
+            
+            local success = MoveNPCToPlayer(args[2])
+            if not success then
+                LogError("Failed to summon NPC")
+            end
+        end
+    )
     
-    MoveNPCToPlayer(args[2])
-end)
+    Log("NPC summon command registered successfully")
+end
 ```
 
 ### Tracking NPC Movements
@@ -175,6 +199,18 @@ In future updates, we plan to expand the API to include:
 - Additional NPC information attributes
 
 Note that some commonly requested features, such as making NPCs follow players or complex NPC behavior control, are not currently planned for implementation.
+
+## Command Registration Best Practices
+
+When creating commands that utilize the NPC API, follow these best practices:
+
+1. **Always register commands in `OnConsoleReady()`** to ensure the console system is fully initialized
+2. **Use prefixes like `npc_`** for your commands to avoid conflicts with built-in game commands
+3. **Provide clear descriptions and usage examples** to make your commands user-friendly
+4. **Include proper error handling** for cases when NPCs don't exist or parameters are invalid
+5. **Return success/failure status** to provide feedback to the user
+
+See the [Command API documentation](../registry/commands.md) for more details on registering and managing console commands.
 
 Stay tuned for updates to the API as development progresses.
 

@@ -2,6 +2,10 @@
 
 This guide explains how to effectively report issues with ScheduleLua to help the development team quickly understand, reproduce, and fix problems.
 
+<div class="custom-block warning">
+  <p><strong>Beta Software Notice:</strong> ScheduleLua is in active development. Before reporting, please check if your issue is already known or fixed in a newer version.</p>
+</div>
+
 ## Before Reporting an Issue
 
 Before submitting a new issue, please:
@@ -16,7 +20,7 @@ Before submitting a new issue, please:
 Issues can be reported through:
 
 - GitHub Issues (preferred): [https://github.com/ifBars/ScheduleLua/issues](https://github.com/ifBars/ScheduleLua/issues)
-- Discord: For security vulnerabilities only, contact ifbars directly via Discord dms
+- Discord: For security vulnerabilities only, contact ifbars directly via Discord DMs
 
 ## How to Write a Good Bug Report
 
@@ -82,8 +86,15 @@ function OnSceneLoaded(sceneName)
 end
 ```
 
+<div class="custom-block tip">
+  <p><strong>Tip:</strong> The more specific and detailed your bug report is, the faster we can identify and fix the issue.</p>
+</div>
+
 ## Example Bug Report Template
 
+When submitting a bug report, please use the following format:
+
+:::details Bug Report Example
 ```
 Title: Game crashes when accessing Registry items during scene transition
 
@@ -109,8 +120,10 @@ Error Message:
 NullReferenceException: Object reference not set to an instance of an object
 at ScheduleLua.RegistryAPI.GetItem(String itemId) in RegistryAPI.cs:line 42
 at UserScript.OnSceneLoaded(String sceneName) in script.lua:line 5
+```
 
-Sample Code:
+Sample code that triggers the issue:
+
 ```lua
 function OnSceneLoaded(sceneName)
     -- This causes the crash because Registry isn't ready yet
@@ -119,8 +132,8 @@ function OnSceneLoaded(sceneName)
 end
 ```
 
-I've attached the full MelonLoader log and a screenshot of the crash.
-```
+Remember to attach the full MelonLoader log and any relevant screenshots.
+:::
 
 ## Bug Report Lifecycle
 
@@ -134,6 +147,10 @@ After submitting your issue:
 
 ## Tips for Effective Bug Reporting
 
+<div class="custom-block info">
+  <p>Following these best practices will help us resolve your issue more quickly:</p>
+</div>
+
 - **One issue per report**: File separate reports for unrelated issues
 - **Be specific**: Provide exact details, not general descriptions
 - **Be concise**: Include necessary information, but avoid lengthy explanations
@@ -143,9 +160,13 @@ After submitting your issue:
 
 ## Security Vulnerabilities
 
-For security vulnerabilities, please do not file a public issue. Instead:
+<div class="custom-block danger">
+  <p><strong>Important:</strong> For security vulnerabilities, please do not file a public issue.</p>
+</div>
 
-1. Contact the development team directly via email
+Instead:
+
+1. Contact the developer directly via Discord: **ifbars**
 2. Provide a detailed description of the vulnerability
 3. Wait for acknowledgment before disclosing publicly
 
