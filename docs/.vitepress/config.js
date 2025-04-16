@@ -21,6 +21,7 @@ module.exports = {
       { text: 'Guide', link: '/guide/' },
       { text: 'API Reference', link: '/api/' },
       { text: 'Examples', link: '/examples/' },
+      { text: 'Database', link: '/database/' },
       { 
         text: 'Development', 
         items: [
@@ -175,6 +176,19 @@ module.exports = {
                 { text: 'Some examples may demonstrate planned functionality that is not yet fully implemented.' }
               ]
             }
+          ]
+        }
+      ],
+      '/database/': [
+        {
+          text: 'Game Database',
+          collapsed: false,
+          items: [
+            { text: 'Overview', link: '/database/' },
+            { text: 'NPC Database', link: '/database/npcs' },
+            { text: 'Item Database', link: '/database/items' },
+            { text: 'Prefab Database', link: '/database/prefabs' },
+            { text: 'Region Database', link: '/database/regions' },
           ]
         }
       ]

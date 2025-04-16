@@ -210,7 +210,7 @@ When creating commands that utilize the NPC API, follow these best practices:
 4. **Include proper error handling** for cases when NPCs don't exist or parameters are invalid
 5. **Return success/failure status** to provide feedback to the user
 
-See the [Command API documentation](../registry/commands.md) for more details on registering and managing console commands.
+See the [Command API documentation](../core/commands.md) for more details on registering and managing console commands.
 
 Stay tuned for updates to the API as development progresses.
 

@@ -1,6 +1,6 @@
 # Ignore ScheduleOne and ScheduleLua directories (This is so my, Bars, PC doesn't commit them)
-/ScheduleOne/
 /ScheduleLua/
+/ScheduleOne/
 
 # Node dependencies
 node_modules/

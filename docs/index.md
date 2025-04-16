@@ -125,7 +125,7 @@ ScheduleLua now features a modular mod system that allows you to:
 - Export and import functions between mods
 - Organize your code across multiple files
 
-Learn more in the [Mod System Guide](/ScheduleLua-Docs/guide/mod-system).
+Learn more in the [Mod System Guide](/guide/mod-system).
 
 ## Join the Community
 
