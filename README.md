@@ -84,7 +84,7 @@ Please ensure your contributions:
 ## 🔗 Related Links
 
 - [ScheduleLua GitHub Repository](https://github.com/ifBars/ScheduleLua)
-- [Discord Community](https://discord.gg/rV2QSAnqhX)
+- [Discord Community](https://discord.gg/Ab8snpEFDn)
 
 ## 📄 License
 
