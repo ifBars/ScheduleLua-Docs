@@ -243,3 +243,92 @@ end
 
 - Returns `false` if the region doesn't exist
 - Useful for area-specific gameplay logic 
+
+## GetPlayerMovementSpeed
+
+**Status:** ✅ Stable
+
+**Signature:** `number GetPlayerMovementSpeed()`
+
+**Description:** Gets the player's current movement speed multiplier.
+
+### Parameters
+
+None.
+
+### Returns
+
+A number representing the player's current movement speed multiplier (1.0 is normal speed).
+
+### Example
+
+```lua
+function Update()
+    local speed = GetPlayerMovementSpeed()
+    
+    if speed > 1.5 then
+        ShowNotification("You're moving fast!")
+    elseif speed < 0.5 then
+        ShowNotification("You're moving slowly!")
+    end
+end
+
+-- Best practice: Initialize player-related systems when player is ready
+function OnPlayerReady()
+    -- Initial speed check
+    local initialSpeed = GetPlayerMovementSpeed()
+    Log("Initial player speed: " .. initialSpeed)
+end
+```
+
+### Notes
+
+- This function returns the movement speed multiplier, where 1.0 represents normal speed
+- Can be used to check if the player has speed-affecting buffs or debuffs
+- For reliable initialization, check speed after player is loaded using the `OnPlayerReady()` callback
+
+## SetPlayerMovementSpeed
+
+**Status:** ✅ Stable
+
+**Signature:** `boolean SetPlayerMovementSpeed(number speedMultiplier)`
+
+**Description:** Sets the player's movement speed multiplier to the specified value.
+
+### Parameters
+
+- `speedMultiplier` (number): The speed multiplier to set (1.0 is normal speed)
+
+### Returns
+
+`true` if successful, `false` otherwise.
+
+### Example
+
+```lua
+
+-- Create a slowdown effect
+local function ApplySlowEffect()
+    SetPlayerMovementSpeed(0.5)
+    Wait(5)
+    SetPlayerMovementSpeed(1.0)
+end
+
+-- Best practice: Initialize speed settings when player is ready
+function OnPlayerReady()
+    -- Store original speed for reference
+    originalSpeed = GetPlayerMovementSpeed()
+    Log("Player ready with speed: " .. originalSpeed)
+    
+    -- Apply speed configurations
+    if IsPlayerInRegion("Westville") then
+        ApplySlowEffect()
+    end
+end
+```
+
+### Notes
+
+- Affects all movement including walking, running, and sprinting
+- Can be used to create speed boost or slowdown effects
+- Wait for player to be fully loaded using `OnPlayerReady()` before setting initial speed values 

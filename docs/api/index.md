@@ -18,6 +18,7 @@ The ScheduleLua API is being actively developed. Here's the current implementati
 | NPC API | 🔄 Partial |
 | Map API | 🔄 Partial |
 | Helper Functions | 🔄 Partial |
+| Windows API | 🔄 Partial |
 | UI API | 🔄 Partial |
 | Registry API | 🔄 Partial |
 | Economy API | 🔄 Partial |
@@ -44,6 +45,9 @@ Functions for working with map regions and world interaction.
 
 ### [Helper Functions](./helper/) - 🔄 Partial
 Utility functions such as Vector3 operations to simplify common tasks.
+
+### [Windows API](./windows/) - 🔄 Partial
+Functions for Windows-specific features like key detection and input handling.
 
 ### [UI API](./ui/) - 🔄 Experimental
 Create notifications and basic UI elements. Advanced features are still in development.

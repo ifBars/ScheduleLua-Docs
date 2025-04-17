@@ -2,6 +2,10 @@
 
 ScheduleLua provides a comprehensive event system for time-related events in Schedule I. This API allows scripts to register for various time-based events and respond to them appropriately.
 
+<div class="custom-block warning">
+  <p><strong>Implementation Status:</strong> Partially implemented. Basic functionality works, but some advanced features are still in development.</p>
+</div>
+
 ## Overview
 
 The Time Events API enables scripts to:

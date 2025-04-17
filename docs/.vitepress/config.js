@@ -89,7 +89,7 @@ module.exports = {
         },
         {
           text: 'Player API',
-          collapsed: false,
+          collapsed: true,
           items: [
             { text: 'Overview', link: '/api/player/' },
             { text: 'Status', link: '/api/player/status' },
@@ -99,7 +99,7 @@ module.exports = {
         },
         {
           text: 'NPC API',
-          collapsed: false,
+          collapsed: true,
           items: [
             { text: 'Overview', link: '/api/npc/' },
             { text: 'Finding NPCs', link: '/api/npc/finding' },
@@ -108,7 +108,7 @@ module.exports = {
         },
         {
           text: 'Time API',
-          collapsed: false,
+          collapsed: true,
           items: [
             { text: 'Game Time', link: '/api/time/game-time' },
             { text: 'Events', link: '/api/time/events' },
@@ -116,25 +116,43 @@ module.exports = {
         },
         {
           text: 'Map API',
-          collapsed: false,
+          collapsed: true,
           items: [
             { text: 'Regions', link: '/api/map/' },
           ]
         },
         {
+          text: 'Native UI API',
+          collapsed: true,
+          items: [
+            { text: 'Overview', link: '/api/ui/' },
+            { text: 'Notifications', link: '/api/ui/notifications' },
+            { text: 'Messages', link: '/api/ui/messages' },
+            { text: 'Dialogs', link: '/api/ui/dialogs' },
+          ]
+        },
+        {
+          text: 'Custom UI API',
+          collapsed: true,
+          items: [
+            { text: 'Overview', link: '/api/custom-ui/' },
+            { text: 'Windows', link: '/api/custom-ui/windows' },
+            { text: 'Controls', link: '/api/custom-ui/controls' },
+            { text: 'Styling', link: '/api/custom-ui/styling' },
+          ]
+        },
+        {
           text: 'Helper Functions',
-          collapsed: false,
+          collapsed: true,
           items: [
             { text: 'Vector Operations', link: '/api/helper/' },
           ]
         },
         {
-          text: 'UI API (Partial)',
+          text: 'Windows API',
           collapsed: true,
           items: [
-            { text: 'Overview', link: '/api/ui/' },
-            { text: 'Notifications', link: '/api/ui/notifications' },
-            { text: 'Custom UI', link: '/api/ui/custom-ui' },
+            { text: 'Key Input', link: '/api/windows/' },
           ]
         },
         {

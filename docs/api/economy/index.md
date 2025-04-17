@@ -2,9 +2,9 @@
 
 The Economy API allows your scripts to interact with the game's economy system, including accessing and manipulating the player's money, both cash and online balance, creating transactions, and modifying certain game economy rules.
 
-## Implementation Status: 🔄 Partial
-
-Economy functions are largely implemented and stable, with some advanced features still in development.
+<div class="custom-block warning">
+  <p><strong>Implementation Status:</strong> Partially implemented. Basic economy functions are available.</p>
+</div>
 
 ## Available Functions
 

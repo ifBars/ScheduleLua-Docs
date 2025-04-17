@@ -2,7 +2,7 @@
 
 The Law API provides functions for interacting with the law enforcement and legal systems in Schedule 1. This includes curfew management, crime reporting, and police response.
 
-<div class="custom-block tip">
+<div class="custom-block warning">
   <p><strong>Implementation Status:</strong> Partially implemented. Curfew functionality is available, but other features are still in development.</p>
 </div>
 

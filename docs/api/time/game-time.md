@@ -2,6 +2,10 @@
 
 The Game Time API provides functions for interacting with Schedule 1's time system. This includes getting the current game time, day, and checking for specific time conditions.
 
+<div class="custom-block warning">
+  <p><strong>Implementation Status:</strong> Partially implemented. Basic functionality works, but some advanced features are still in development.</p>
+</div>
+
 ## GetGameTime
 
 **Signature:** `int GetGameTime()`
