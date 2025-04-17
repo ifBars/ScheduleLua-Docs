@@ -60,7 +60,8 @@ module.exports = {
           collapsed: false,
           items: [
             { text: 'Mod System Overview', link: '/guide/mod-system' },
-            { text: 'Mod Imports and Exports', link: '/guide/mod-functions' }
+            { text: 'Mod Imports and Exports', link: '/guide/mod-functions' },
+            { text: 'Mod Deployment', link: '/guide/mod-deployment' }
           ]
         },
         {
