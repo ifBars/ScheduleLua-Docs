@@ -10,7 +10,7 @@ The Notification system provides functions for displaying persistent notificatio
 
 ### ShowNotification
 
-**Signature:** `int ShowNotification(string title, string message, string type)`
+**Signature:** `int ShowNotification(string title, string message)`
 
 **Description:** Shows a notification with a title and message of the specified type.
 
@@ -18,7 +18,6 @@ The Notification system provides functions for displaying persistent notificatio
 
 - `title` (string): The notification title
 - `message` (string): The notification message content
-- `type` (string): The notification type - "info", "success", "warning", or "error"
 
 ### Returns
 
@@ -32,11 +31,7 @@ function OnQuestAvailable(questName, questGiver)
     local notificationId = ShowNotification(
         "New Quest Available",
         "Visit " .. questGiver .. " to start the quest: " .. questName,
-        "info"
     )
-    
-    -- Store the notification ID for later reference
-    SaveNotificationId("quest_" .. questName, notificationId)
 }
 
 -- Show success notification with rewards
@@ -52,7 +47,6 @@ function OnSkillLevelUp(skillName, newLevel)
     ShowNotification(
         skillName .. " Increased!",
         "Your " .. skillName .. " skill is now level " .. newLevel .. ".\n" .. bonusText,
-        "success"
     )
 }
 ```

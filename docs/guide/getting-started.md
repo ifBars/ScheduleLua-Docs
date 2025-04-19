@@ -36,7 +36,7 @@ function Initialize()
             Log("Hello, " .. playerName .. "!")
             
             -- Show a notification to the player
-            ShowNotification("Hello World", "Welcome to ScheduleLua Beta!", 3)
+            ShowNotification("Hello World", "Welcome to ScheduleLua Beta!")
         end
     )
     
