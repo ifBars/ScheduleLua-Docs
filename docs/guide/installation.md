@@ -37,7 +37,7 @@ Your directory structure should look like this:
 ```
 Schedule 1/
 ├── Mods/
-│   ├── Scripts
+│   ├── ScheduleLua
 │   ├── ScheduleLua.dll
 │   └── ... (other mod DLLs)
 ├── UserLibs/
