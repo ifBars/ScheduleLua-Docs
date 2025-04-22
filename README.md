@@ -2,7 +2,7 @@
 
 [![Build & Deploy VitePress Site](https://github.com/ifBars/ScheduleLua-Docs/actions/workflows/deploy.yml/badge.svg)](https://github.com/ifBars/ScheduleLua-Docs/actions/workflows/deploy.yml)
 [![Built with VitePress](https://img.shields.io/badge/Built%20with-VitePress-42b883)](https://vitepress.dev/)
-[![Documentation Status](https://img.shields.io/badge/Documentation-Beta-orange)](https://ifbars.github.io/ScheduleLua-Docs/guide/documentation-progress)
+[![Documentation Status](https://img.shields.io/badge/Documentation-Beta-orange)](https://ifbars.github.io/ScheduleLua-Docs/guide/development-status.html)
 
 This repository contains the official documentation for [ScheduleLua](https://github.com/ifBars/ScheduleLua), a Lua scripting API for Schedule 1 that allows you to create mods and enhance your gameplay experience.
 
