@@ -1,6 +1,6 @@
 # ScheduleLua Documentation
 
-[![GitHub pages](https://img.shields.io/badge/GitHub%20Pages-active-brightgreen)](https://ifbars.github.io/ScheduleLua-Docs/)
+[![Build & Deploy VitePress Site](https://github.com/ifBars/ScheduleLua-Docs/actions/workflows/deploy.yml/badge.svg)](https://github.com/ifBars/ScheduleLua-Docs/actions/workflows/deploy.yml)
 [![Built with VitePress](https://img.shields.io/badge/Built%20with-VitePress-42b883)](https://vitepress.dev/)
 [![Documentation Status](https://img.shields.io/badge/Documentation-Beta-orange)](https://ifbars.github.io/ScheduleLua-Docs/guide/documentation-progress)
 
