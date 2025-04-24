@@ -10,7 +10,7 @@ This guide explains how to effectively report issues with ScheduleLua to help th
 
 Before submitting a new issue, please:
 
-1. **Check the known issues**: Review the [known_issues.md](https://github.com/ifBars/ScheduleLua/blob/main/known_issues.md) file to see if your problem is already documented
+1. **Check the known issues**: Review the [Known Issues](https://github.com/ScheduleLua/ScheduleLua-Framework/issues) to see if your problem is already documented
 2. **Search existing issues**: Check if someone has already reported the same problem
 3. **Update to the latest version**: Ensure you're using the most recent version of ScheduleLua
 4. **Try simple troubleshooting**: Disable other mods, restart the game, or try a clean install
@@ -19,7 +19,7 @@ Before submitting a new issue, please:
 
 Issues can be reported through:
 
-- GitHub Issues (preferred): [https://github.com/ifBars/ScheduleLua/issues](https://github.com/ifBars/ScheduleLua/issues)
+- GitHub Issues (preferred): [https://github.com/ScheduleLua/ScheduleLua-Framework/issues](https://github.com/ScheduleLua/ScheduleLua-Framework/issues)
 - Discord: For security vulnerabilities only, contact ifbars directly via Discord DMs
 
 ## How to Write a Good Bug Report

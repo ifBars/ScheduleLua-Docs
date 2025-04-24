@@ -17,7 +17,7 @@ hero:
       link: /api/
     - theme: alt
       text: Contribute
-      link: https://github.com/ifBars/ScheduleLua
+      link: https://github.com/ScheduleLua/ScheduleLua-Framework
 
 features:
   - icon: 🔌
@@ -125,14 +125,14 @@ Learn more in the [Mod System Guide](/guide/mod-system).
 ## Join the Community
 
 <div class="community-grid">
-  <a href="https://github.com/ifBars/ScheduleLua" class="community-card">
+  <a href="https://github.com/ScheduleLua/ScheduleLua-Framework" class="community-card">
     <div class="community-icon">👨‍💻</div>
     <div>
       <h3>Code Contributions</h3>
       <p>Submit pull requests to help implement new features</p>
     </div>
   </a>
-  <a href="https://github.com/ifBars/ScheduleLua/issues" class="community-card">
+  <a href="https://github.com/ScheduleLua/ScheduleLua-Framework/issues" class="community-card">
     <div class="community-icon">🐛</div>
     <div>
       <h3>Bug Reports</h3>

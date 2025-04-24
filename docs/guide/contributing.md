@@ -27,11 +27,11 @@ There are several ways you can contribute to ScheduleLua:
 1. Fork the repository on GitHub
 2. Clone your fork locally:
    ```
-   git clone https://github.com/YOUR-USERNAME/ScheduleLua.git
+   git clone https://github.com/YOUR-USERNAME/ScheduleLua-Framework.git
    ```
 3. Add the upstream repository as a remote:
    ```
-   git remote add upstream https://github.com/ifBars/ScheduleLua.git
+   git remote add upstream https://github.com/ScheduleLua/ScheduleLua-Framework.git
    ```
 
 ### Building the Project
@@ -48,11 +48,11 @@ There are several ways you can contribute to ScheduleLua:
 ## Contribution Workflow
 
 1. **Fork the repository**: Create your own fork of the ScheduleLua repository on GitHub
-   - Click the "Fork" button at the top right of the [ScheduleLua repository](https://github.com/ORIGINAL-OWNER/ScheduleLua)
+   - Click the "Fork" button at the top right of the [ScheduleLua repository](https://github.com/ScheduleLua/ScheduleLua-Framework)
 
 2. **Clone your fork**: Download your fork to your local machine
    ```
-   git clone https://github.com/YOUR-USERNAME/ScheduleLua.git
+   git clone https://github.com/YOUR-USERNAME/ScheduleLua-Framework.git
    cd ScheduleLua
    ```
 
@@ -88,7 +88,7 @@ There are several ways you can contribute to ScheduleLua:
 
 Regularly sync your fork with the upstream repository:
 ```
-git remote add upstream https://github.com/ifBars/ScheduleLua.git
+git remote add upstream https://github.com/ScheduleLua/ScheduleLua-Framework.git
 git fetch upstream
 git checkout main
 git merge upstream/main

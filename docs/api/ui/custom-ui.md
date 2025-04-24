@@ -1076,7 +1076,7 @@ None.
 ```lua
 -- Create a dark blue window with semi-transparency
 CreateWindow("myWindow", "Styled Window", 100, 100, 400, 300)
-SetWindowStyle("background", 0.1, 0.1, 0.3, 0.9)
+SetWindowStyle("background", 0.1, 0.1, 0.3, 0.95)
 ```
 
 ### SetButtonStyle
@@ -1399,3 +1399,1014 @@ end)
 ```
 
 The example above demonstrates how to create a fully styled window with custom colors, fonts, and layout. You can adapt these styling techniques to create UI that matches your mod's visual theme.
+
+## Storage Entity Functions
+
+The Storage Entity system provides functions for creating and managing in-game storage containers that can hold items.
+
+### CreateStorageEntity
+
+**Signature:** `string CreateStorageEntity(string name, int slotCount, int rowCount)`
+
+**Description:** Creates a storage entity with a specified number of slots and rows.
+
+#### Parameters
+
+- `name` (string): The name of the storage entity
+- `slotCount` (int): The number of slots in the storage (1-50)
+- `rowCount` (int): The number of rows to display in the UI
+
+#### Returns
+
+- `entityId` (string): A unique ID for the created storage entity
+
+#### Example
+
+```lua
+function CreatePlayerChest()
+    local chestId = CreateStorageEntity("Player's Chest", 24, 4)
+    
+    -- Add some starting items
+    AddItemToStorage(chestId, "item_healing_potion", 5)
+    AddItemToStorage(chestId, "item_gold_coin", 100)
+    
+    return chestId
+end
+
+-- Command to open the player's chest
+RegisterCommand("chest", "Opens your personal storage chest", "chest", function(args)
+    if not _G.playerChestId then
+        _G.playerChestId = CreatePlayerChest()
+    end
+    
+    OpenStorageEntity(_G.playerChestId)
+end)
+```
+
+#### Notes
+
+- Storage entities persist until the script is unloaded or the game is closed
+- The slot count is clamped between 1 and 50
+- Row count determines how many rows are visible in the UI at once
+- Each storage entity has a unique ID that must be used for all operations
+
+### OpenStorageEntity
+
+**Signature:** `void OpenStorageEntity(string entityId)`
+
+**Description:** Opens the UI for a storage entity.
+
+#### Parameters
+
+- `entityId` (string): The ID of the storage entity to open
+
+#### Returns
+
+None.
+
+#### Example
+
+```lua
+function OpenQuestRewardChest(questName)
+    local chestId = _G.questChests[questName]
+    
+    if chestId then
+        -- Set a custom title before opening
+        SetStorageName(chestId, questName .. " - Quest Rewards")
+        SetStorageSubtitle(chestId, "Claim your rewards for completing the quest")
+        
+        -- Open the storage UI
+        OpenStorageEntity(chestId)
+    else
+        ShowNotification("Error", "Reward chest not found!")
+    end
+end
+```
+
+#### Notes
+
+- Only one storage entity can be open at a time
+- Opening a storage entity will close any currently open storage
+- The storage entity must exist or an error will be logged
+
+### CloseStorageEntity
+
+**Signature:** `void CloseStorageEntity(string entityId)`
+
+**Description:** Closes the UI for a storage entity.
+
+#### Parameters
+
+- `entityId` (string): The ID of the storage entity to close
+
+#### Returns
+
+None.
+
+#### Example
+
+```lua
+function CloseAllStorageEntities()
+    -- Close all created storage entities
+    for questName, chestId in pairs(_G.questChests) do
+        CloseStorageEntity(chestId)
+    end
+end
+
+-- Close all storage when player enters combat
+function OnCombatStart()
+    CloseAllStorageEntities()
+    ShowNotification("Combat", "Storage closed due to combat!")
+end
+```
+
+#### Notes
+
+- Closing a storage that is not open has no effect
+- The storage entity must exist or an error will be logged
+
+### AddItemToStorage
+
+**Signature:** `boolean AddItemToStorage(string entityId, string itemId, int quantity)`
+
+**Description:** Adds an item to a storage entity.
+
+#### Parameters
+
+- `entityId` (string): The ID of the storage entity
+- `itemId` (string): The ID of the item to add
+- `quantity` (int): The quantity of the item to add (default: 1)
+
+#### Returns
+
+- `success` (boolean): Whether the item was successfully added
+
+#### Example
+
+```lua
+function AddRewardsToChest(chestId, tier)
+    local success = true
+    
+    if tier == "common" then
+        success = success and AddItemToStorage(chestId, "item_gold_coin", 50)
+        success = success and AddItemToStorage(chestId, "item_health_potion", 2)
+    elseif tier == "rare" then
+        success = success and AddItemToStorage(chestId, "item_gold_coin", 200)
+        success = success and AddItemToStorage(chestId, "item_mana_potion", 3)
+        success = success and AddItemToStorage(chestId, "item_rare_crystal", 1)
+    elseif tier == "epic" then
+        success = success and AddItemToStorage(chestId, "item_gold_coin", 500)
+        success = success and AddItemToStorage(chestId, "item_epic_weapon", 1)
+    end
+    
+    return success
+end
+```
+
+#### Notes
+
+- Returns false if the item cannot fit in the storage
+- Returns false if the item ID does not exist in the registry
+- The storage entity must exist or an error will be logged
+
+### GetStorageItems
+
+**Signature:** `table GetStorageItems(string entityId)`
+
+**Description:** Gets all items in a storage entity as a table.
+
+#### Parameters
+
+- `entityId` (string): The ID of the storage entity
+
+#### Returns
+
+- `items` (table): A table of items in the storage, each with id, name, quantity, and stackLimit properties
+
+#### Example
+
+```lua
+function PrintStorageContents(entityId)
+    local items = GetStorageItems(entityId)
+    
+    if #items == 0 then
+        print("Storage is empty")
+        return
+    end
+    
+    print("Storage contents:")
+    for i, item in ipairs(items) do
+        print(string.format("%d. %s (x%d)", i, item.name, item.quantity))
+    end
+end
+
+-- Command to list chest contents
+RegisterCommand("list", "Lists the contents of your chest", "list", function(args)
+    if _G.playerChestId then
+        PrintStorageContents(_G.playerChestId)
+    else
+        print("You don't have a chest yet!")
+    end
+end)
+```
+
+#### Notes
+
+- Returns an empty table if the storage is empty
+- Each item in the returned table has the following properties:
+  - `id`: The item ID
+  - `name`: The display name of the item
+  - `quantity`: The quantity of the item
+  - `stackLimit`: The maximum stack size for the item
+  - `quality`: The quality of the item (if applicable)
+
+### IsStorageOpen
+
+**Signature:** `boolean IsStorageOpen(string entityId)`
+
+**Description:** Checks if a storage entity is currently open.
+
+#### Parameters
+
+- `entityId` (string): The ID of the storage entity
+
+#### Returns
+
+- `isOpen` (boolean): Whether the storage entity is currently open
+
+#### Example
+
+```lua
+function TryCloseStorage(entityId)
+    if IsStorageOpen(entityId) then
+        CloseStorageEntity(entityId)
+        return true
+    else
+        return false
+    end
+end
+
+-- Only allow item pickup if storage is closed
+function CanPickupItem()
+    return not IsStorageOpen(_G.playerChestId)
+end
+```
+
+#### Notes
+
+- Useful for checking if the player is currently interacting with a storage
+- The storage entity must exist or an error will be logged
+
+### SetStorageName
+
+**Signature:** `void SetStorageName(string entityId, string name)`
+
+**Description:** Sets the display name of a storage entity.
+
+#### Parameters
+
+- `entityId` (string): The ID of the storage entity
+- `name` (string): The new name for the storage entity
+
+#### Returns
+
+None.
+
+#### Example
+
+```lua
+function UpdateChestName(entityId, ownerName)
+    SetStorageName(entityId, ownerName .. "'s Chest")
+end
+
+-- Update chest name when player changes their name
+function OnPlayerNameChanged(oldName, newName)
+    if _G.playerChestId then
+        UpdateChestName(_G.playerChestId, newName)
+    end
+end
+```
+
+#### Notes
+
+- Updates the name shown in the UI header when the storage is open
+- The storage entity must exist or an error will be logged
+
+### SetStorageSubtitle
+
+**Signature:** `void SetStorageSubtitle(string entityId, string subtitle)`
+
+**Description:** Sets the subtitle text of a storage entity.
+
+#### Parameters
+
+- `entityId` (string): The ID of the storage entity
+- `subtitle` (string): The new subtitle for the storage entity
+
+#### Returns
+
+None.
+
+#### Example
+
+```lua
+function UpdateChestSubtitle(entityId, usedSlots, totalSlots)
+    local percentFull = math.floor((usedSlots / totalSlots) * 100)
+    
+    if percentFull < 50 then
+        SetStorageSubtitle(entityId, "Storage space available: " .. percentFull .. "% full")
+    elseif percentFull < 80 then
+        SetStorageSubtitle(entityId, "Storage getting full: " .. percentFull .. "% full")
+    else
+        SetStorageSubtitle(entityId, "Storage almost full: " .. percentFull .. "% full!")
+    end
+end
+
+-- Update chest subtitle when items are added
+function OnItemAddedToChest(entityId)
+    local items = GetStorageItems(entityId)
+    local usedSlots = #items
+    UpdateChestSubtitle(entityId, usedSlots, 24)
+end
+```
+
+#### Notes
+
+- Updates the subtitle shown in the UI when the storage is open
+- Can be used to show additional information about the storage contents
+- The storage entity must exist or an error will be logged
+
+### ClearStorageContents
+
+**Signature:** `void ClearStorageContents(string entityId)`
+
+**Description:** Removes all items from a storage entity.
+
+#### Parameters
+
+- `entityId` (string): The ID of the storage entity
+
+#### Returns
+
+None.
+
+#### Example
+
+```lua
+function ResetQuestChest(questId)
+    local chestId = _G.questChests[questId]
+    
+    if chestId then
+        ClearStorageContents(chestId)
+        ShowNotification("Quest Reset", "Quest chest has been cleared")
+    end
+end
+
+-- Reset all chests when starting a new game
+function OnNewGameStarted()
+    for questId, chestId in pairs(_G.questChests) do
+        ClearStorageContents(chestId)
+    end
+end
+```
+
+#### Notes
+
+- All items are immediately removed with no way to recover them
+- Use with caution as this operation cannot be undone
+- The storage entity must exist or an error will be logged
+
+### GetStorageEntityCount
+
+**Signature:** `int GetStorageEntityCount()`
+
+**Description:** Gets the total number of storage entities created.
+
+#### Parameters
+
+None.
+
+#### Returns
+
+- `count` (int): The number of storage entities currently created
+
+#### Example
+
+```lua
+function PrintStorageStats()
+    local count = GetStorageEntityCount()
+    print("Total storage entities created: " .. count)
+    
+    if count > 10 then
+        print("Warning: Many storage entities created. Consider cleaning up unused ones.")
+    end
+end
+
+-- Add a debug command
+RegisterCommand("storagestats", "Shows storage entity statistics", "storagestats", function(args)
+    PrintStorageStats()
+end)
+```
+
+#### Notes
+
+- Useful for debugging and monitoring resource usage
+- High counts may indicate a memory leak if entities are created but not cleaned up
+
+## UI Style Functions
+
+The UI Style system provides functions for customizing the appearance of UI elements created with the Custom UI API.
+
+### SetWindowStyle
+
+**Signature:** `void SetWindowStyle(string colorName, float r, float g, float b, float a)`
+
+**Description:** Sets the color properties for window styles.
+
+#### Parameters
+
+- `colorName` (string): The name of the color property to set ("background", "text", "hover", "active")
+- `r` (float): Red component (0-1)
+- `g` (float): Green component (0-1)
+- `b` (float): Blue component (0-1)
+- `a` (float): Alpha component (0-1, optional)
+
+#### Returns
+
+None.
+
+#### Example
+
+```lua
+function SetDarkTheme()
+    -- Set window background to dark blue with transparency
+    SetWindowStyle("background", 0.1, 0.1, 0.2, 0.95)
+    
+    -- Set window text to white
+    SetWindowStyle("text", 1.0, 1.0, 1.0, 1.0)
+    
+    -- Set hover state to lighter blue
+    SetWindowStyle("hover", 0.2, 0.2, 0.3, 0.95)
+end
+
+function SetLightTheme()
+    -- Set window background to light gray with transparency
+    SetWindowStyle("background", 0.8, 0.8, 0.8, 0.95)
+    
+    -- Set window text to dark gray
+    SetWindowStyle("text", 0.2, 0.2, 0.2, 1.0)
+    
+    -- Set hover state to slightly darker gray
+    SetWindowStyle("hover", 0.7, 0.7, 0.7, 0.95)
+end
+```
+
+#### Notes
+
+- Changes apply to all windows created after the style is set
+- The alpha component is optional and defaults to 1.0 (fully opaque)
+- Valid color names are "background", "text", "hover", and "active"
+
+### SetButtonStyle
+
+**Signature:** `void SetButtonStyle(string colorName, float r, float g, float b, float a)`
+
+**Description:** Sets the color properties for button styles.
+
+#### Parameters
+
+- `colorName` (string): The name of the color property to set ("background", "text", "hover", "active")
+- `r` (float): Red component (0-1)
+- `g` (float): Green component (0-1)
+- `b` (float): Blue component (0-1)
+- `a` (float): Alpha component (0-1, optional)
+
+#### Returns
+
+None.
+
+#### Example
+
+```lua
+function SetBlueButtonTheme()
+    -- Set button background to blue
+    SetButtonStyle("background", 0.2, 0.2, 0.8, 0.9)
+    
+    -- Set button text to white
+    SetButtonStyle("text", 1.0, 1.0, 1.0, 1.0)
+    
+    -- Set hover state to lighter blue
+    SetButtonStyle("hover", 0.3, 0.3, 0.9, 0.9)
+    
+    -- Set active (pressed) state to brightest blue
+    SetButtonStyle("active", 0.4, 0.4, 1.0, 0.9)
+end
+
+function SetRedButtonTheme()
+    -- Set button background to red
+    SetButtonStyle("background", 0.8, 0.2, 0.2, 0.9)
+    
+    -- Set button text to white
+    SetButtonStyle("text", 1.0, 1.0, 1.0, 1.0)
+    
+    -- Set hover state to lighter red
+    SetButtonStyle("hover", 0.9, 0.3, 0.3, 0.9)
+    
+    -- Set active (pressed) state to brightest red
+    SetButtonStyle("active", 1.0, 0.4, 0.4, 0.9)
+end
+```
+
+#### Notes
+
+- Changes apply to all buttons created after the style is set
+- The alpha component is optional and defaults to 1.0 (fully opaque)
+- Valid color names are "background", "text", "hover", and "active"
+
+### SetLabelStyle
+
+**Signature:** `void SetLabelStyle(string colorName, float r, float g, float b, float a)`
+
+**Description:** Sets the color properties for label styles.
+
+#### Parameters
+
+- `colorName` (string): The name of the color property to set ("background", "text")
+- `r` (float): Red component (0-1)
+- `g` (float): Green component (0-1)
+- `b` (float): Blue component (0-1)
+- `a` (float): Alpha component (0-1, optional)
+
+#### Returns
+
+None.
+
+#### Example
+
+```lua
+function SetWhiteTextLabels()
+    -- Set label text to white
+    SetLabelStyle("text", 1.0, 1.0, 1.0, 1.0)
+    
+    -- Set label background to transparent
+    SetLabelStyle("background", 0.0, 0.0, 0.0, 0.0)
+}
+
+function SetHighlightedLabels()
+    -- Set label text to yellow
+    SetLabelStyle("text", 1.0, 0.9, 0.2, 1.0)
+    
+    -- Set label background to dark with some opacity
+    SetLabelStyle("background", 0.1, 0.1, 0.1, 0.5)
+}
+```
+
+#### Notes
+
+- Changes apply to all labels created after the style is set
+- The alpha component is optional and defaults to 1.0 (fully opaque)
+- Valid color names are "background" and "text"
+
+### SetTextFieldStyle
+
+**Signature:** `void SetTextFieldStyle(string colorName, float r, float g, float b, float a)`
+
+**Description:** Sets the color properties for text field styles.
+
+#### Parameters
+
+- `colorName` (string): The name of the color property to set ("background", "text")
+- `r` (float): Red component (0-1)
+- `g` (float): Green component (0-1)
+- `b` (float): Blue component (0-1)
+- `a` (float): Alpha component (0-1, optional)
+
+#### Returns
+
+None.
+
+#### Example
+
+```lua
+function SetDarkTextFields()
+    -- Set text field background to dark gray
+    SetTextFieldStyle("background", 0.15, 0.15, 0.15, 0.95)
+    
+    -- Set text field text to white
+    SetTextFieldStyle("text", 1.0, 1.0, 1.0, 1.0)
+}
+
+function SetLightTextFields()
+    -- Set text field background to light gray
+    SetTextFieldStyle("background", 0.8, 0.8, 0.8, 0.95)
+    
+    -- Set text field text to dark
+    SetTextFieldStyle("text", 0.1, 0.1, 0.1, 1.0)
+}
+```
+
+#### Notes
+
+- Changes apply to all text fields created after the style is set
+- The alpha component is optional and defaults to 1.0 (fully opaque)
+- Valid color names are "background" and "text"
+
+### SetBoxStyle
+
+**Signature:** `void SetBoxStyle(string colorName, float r, float g, float b, float a)`
+
+**Description:** Sets the color properties for box styles.
+
+#### Parameters
+
+- `colorName` (string): The name of the color property to set ("background", "text")
+- `r` (float): Red component (0-1)
+- `g` (float): Green component (0-1)
+- `b` (float): Blue component (0-1)
+- `a` (float): Alpha component (0-1, optional)
+
+#### Returns
+
+None.
+
+#### Example
+
+```lua
+function SetDarkBoxes()
+    -- Set box background to dark gray with high transparency
+    SetBoxStyle("background", 0.2, 0.2, 0.2, 0.95)
+    
+    -- Set box text to white
+    SetBoxStyle("text", 1.0, 1.0, 1.0, 1.0)
+}
+
+function SetColoredBoxes(r, g, b)
+    -- Set box background to provided color with some transparency
+    SetBoxStyle("background", r, g, b, 0.7)
+    
+    -- Set box text to white for good contrast
+    SetBoxStyle("text", 1.0, 1.0, 1.0, 1.0)
+}
+```
+
+#### Notes
+
+- Changes apply to all boxes created after the style is set
+- The alpha component is optional and defaults to 1.0 (fully opaque)
+- Valid color names are "background" and "text"
+
+### SetFontSize
+
+**Signature:** `void SetFontSize(string styleName, int size)`
+
+**Description:** Sets the font size for a UI element style.
+
+#### Parameters
+
+- `styleName` (string): The name of the style to modify ("window", "button", "label", "textfield", "box")
+- `size` (int): The font size in pixels
+
+#### Returns
+
+None.
+
+#### Example
+
+```lua
+function SetLargeUIFonts()
+    -- Set window title font size
+    SetFontSize("window", 20)
+    
+    -- Set button font size
+    SetFontSize("button", 16)
+    
+    -- Set label font size
+    SetFontSize("label", 14)
+    
+    -- Set text field font size
+    SetFontSize("textfield", 14)
+}
+
+function SetSmallUIFonts()
+    -- Set window title font size
+    SetFontSize("window", 14)
+    
+    -- Set button font size
+    SetFontSize("button", 12)
+    
+    -- Set label font size
+    SetFontSize("label", 10)
+    
+    -- Set text field font size
+    SetFontSize("textfield", 10)
+}
+```
+
+#### Notes
+
+- Changes apply to all UI elements created after the style is set
+- Valid style names are "window", "button", "label", "textfield", and "box"
+- Very small font sizes may be difficult to read
+
+### SetFontStyle
+
+**Signature:** `void SetFontStyle(string styleName, string fontStyle)`
+
+**Description:** Sets the font style for a UI element.
+
+#### Parameters
+
+- `styleName` (string): The name of the style to modify ("window", "button", "label", "textfield", "box")
+- `fontStyle` (string): The font style ("normal", "bold", "italic", "bolditalic")
+
+#### Returns
+
+None.
+
+#### Example
+
+```lua
+function SetDefaultFontStyles()
+    -- Set window title to bold
+    SetFontStyle("window", "bold")
+    
+    -- Set button text to bold
+    SetFontStyle("button", "bold")
+    
+    -- Set label text to normal
+    SetFontStyle("label", "normal")
+    
+    -- Set text field text to normal
+    SetFontStyle("textfield", "normal")
+}
+
+function SetEmphasisFontStyles()
+    -- Set window title to bold
+    SetFontStyle("window", "bold")
+    
+    -- Set button text to bold
+    SetFontStyle("button", "bold")
+    
+    -- Set label text to italic for emphasis
+    SetFontStyle("label", "italic")
+    
+    -- Set text field text to normal
+    SetFontStyle("textfield", "normal")
+}
+```
+
+#### Notes
+
+- Changes apply to all UI elements created after the style is set
+- Valid style names are "window", "button", "label", "textfield", and "box"
+- Valid font styles are "normal", "bold", "italic", and "bolditalic"
+
+### SetTextAlignment
+
+**Signature:** `void SetTextAlignment(string styleName, string alignment)`
+
+**Description:** Sets the text alignment for a UI element.
+
+#### Parameters
+
+- `styleName` (string): The name of the style to modify ("window", "button", "label", "textfield", "box")
+- `alignment` (string): The text alignment ("left", "center", "right", "topleft", "topcenter", "topright", "middleleft", "middlecenter", "middleright", "bottomleft", "bottomcenter", "bottomright")
+
+#### Returns
+
+None.
+
+#### Example
+
+```lua
+function SetCenteredTextAlignment()
+    -- Set window title to center
+    SetTextAlignment("window", "center")
+    
+    -- Set button text to center
+    SetTextAlignment("button", "center")
+    
+    -- Set label text to center
+    SetTextAlignment("label", "center")
+}
+
+function SetLeftAlignedText()
+    -- Set window title to center (headers often look best centered)
+    SetTextAlignment("window", "center")
+    
+    -- Set button text to center (buttons often look best centered)
+    SetTextAlignment("button", "center")
+    
+    -- Set label text to left aligned
+    SetTextAlignment("label", "left")
+    
+    -- Set text field to left aligned
+    SetTextAlignment("textfield", "left")
+}
+```
+
+#### Notes
+
+- Changes apply to all UI elements created after the style is set
+- Valid style names are "window", "button", "label", "textfield", and "box"
+- Valid alignments include all combinations of vertical (top, middle, bottom) and horizontal (left, center, right) positions
+
+### SetBorder
+
+**Signature:** `void SetBorder(string styleName, int left, int right, int top, int bottom)`
+
+**Description:** Sets the border width for a UI element style.
+
+#### Parameters
+
+- `styleName` (string): The name of the style to modify ("window", "button", "textfield", "box")
+- `left` (int): Left border width in pixels
+- `right` (int): Right border width in pixels
+- `top` (int): Top border width in pixels
+- `bottom` (int): Bottom border width in pixels
+
+#### Returns
+
+None.
+
+#### Example
+
+```lua
+function SetThickBorders()
+    -- Set window borders (thicker on top for title bar)
+    SetBorder("window", 10, 10, 20, 10)
+    
+    -- Set button borders
+    SetBorder("button", 5, 5, 5, 5)
+    
+    -- Set box borders
+    SetBorder("box", 5, 5, 5, 5)
+}
+
+function SetThinBorders()
+    -- Set window borders
+    SetBorder("window", 3, 3, 5, 3)
+    
+    -- Set button borders
+    SetBorder("button", 2, 2, 2, 2)
+    
+    -- Set box borders
+    SetBorder("box", 1, 1, 1, 1)
+}
+```
+
+#### Notes
+
+- Changes apply to all UI elements created after the style is set
+- Valid style names are "window", "button", "textfield", and "box"
+- Border width is specified in pixels
+
+### SetPadding
+
+**Signature:** `void SetPadding(string styleName, int left, int right, int top, int bottom)`
+
+**Description:** Sets the padding for a UI element style.
+
+#### Parameters
+
+- `styleName` (string): The name of the style to modify ("window", "button", "label", "textfield", "box")
+- `left` (int): Left padding in pixels
+- `right` (int): Right padding in pixels
+- `top` (int): Top padding in pixels
+- `bottom` (int): Bottom padding in pixels
+
+#### Returns
+
+None.
+
+#### Example
+
+```lua
+function SetSpacious()
+    -- Set window padding
+    SetPadding("window", 15, 15, 25, 15)
+    
+    -- Set button padding
+    SetPadding("button", 10, 10, 10, 10)
+    
+    -- Set label padding
+    SetPadding("label", 8, 8, 8, 8)
+    
+    -- Set text field padding
+    SetPadding("textfield", 8, 8, 8, 8)
+}
+
+function SetCompact()
+    -- Set window padding
+    SetPadding("window", 5, 5, 10, 5)
+    
+    -- Set button padding
+    SetPadding("button", 3, 3, 3, 3)
+    
+    -- Set label padding
+    SetPadding("label", 2, 2, 2, 2)
+    
+    -- Set text field padding
+    SetPadding("textfield", 2, 2, 2, 2)
+}
+```
+
+#### Notes
+
+- Changes apply to all UI elements created after the style is set
+- Valid style names are "window", "button", "label", "textfield", and "box"
+- Padding is specified in pixels and defines the space between the element's border and its content
+
+## Global UI Functions
+
+### EnableGUI
+
+**Signature:** `void EnableGUI(bool enable)`
+
+**Description:** Enables or disables all custom GUI rendering.
+
+#### Parameters
+
+- `enable` (bool): Whether to enable GUI rendering
+
+#### Returns
+
+None.
+
+#### Example
+
+```lua
+function ToggleUI()
+    -- Toggle UI based on current state
+    EnableGUI(not IsGUIEnabled())
+}
+
+-- Hide UI during cutscenes
+function OnCutsceneStart()
+    EnableGUI(false)
+}
+
+function OnCutsceneEnd()
+    EnableGUI(true)
+}
+```
+
+#### Notes
+
+- Disabling GUI will hide all custom windows and controls
+- Useful for temporarily hiding the UI during cutscenes or other special game states
+- Does not affect the game's native UI elements
+
+### IsGUIEnabled
+
+**Signature:** `bool IsGUIEnabled()`
+
+**Description:** Checks if GUI rendering is currently enabled.
+
+#### Parameters
+
+None.
+
+#### Returns
+
+- `enabled` (bool): Whether GUI rendering is currently enabled
+
+#### Example
+
+```lua
+function SafelyShowWindow(windowId)
+    if IsGUIEnabled() then
+        ShowWindow(windowId, true)
+        return true
+    else
+        print("Cannot show window while GUI is disabled")
+        return false
+    end
+}
+
+-- Toggle a window based on command
+RegisterCommand("togglewindow", "Toggles a window", "togglewindow <windowId>", function(args)
+    local windowId = args[1]
+    
+    if not windowId then
+        print("Window ID required")
+        return
+    end
+    
+    if not IsGUIEnabled() then
+        print("GUI is currently disabled. Enable it first.")
+        return
+    end
+    
+    if IsWindowVisible(windowId) then
+        ShowWindow(windowId, false)
+    else
+        ShowWindow(windowId, true)
+    end
+end)
+```
+
+#### Notes
+
+- Useful for checking if GUI is enabled before attempting to show or modify UI elements
+- Can be used to conditionally show UI based on the current GUI state

@@ -53,6 +53,6 @@ Despite these limitations, you can still create useful scripts by:
 
 ## Reporting Issues
 
-If you encounter bugs or unexpected behavior, please report them on the [GitHub issue tracker](https://github.com/ifBars/ScheduleLua/issues) or discuss them in the [Discord community](https://discord.gg/Ab8snpEFDn).
+If you encounter bugs or unexpected behavior, please report them on the [GitHub issue tracker](https://github.com/ScheduleLua/ScheduleLua-Framework/issues) or discuss them in the [Discord community](https://discord.gg/Ab8snpEFDn).
 
 Your feedback is essential for improving ScheduleLua! 

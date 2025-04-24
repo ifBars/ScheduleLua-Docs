@@ -209,7 +209,7 @@ We recommend starting with the basic example as it uses the most stable parts of
 
 If you've created a working script for the current beta version that demonstrates a useful technique, consider sharing it with the community. You can submit your examples through:
 
-1. Pull requests to the [documentation repository](https://github.com/ifBars/ScheduleLua-Docs)
+1. Pull requests to the [documentation repository](https://github.com/ScheduleLua/ScheduleLua-Docs)
 2. Posting in the #lua-examples channel of our [Discord server](https://discord.gg/Ab8snpEFDn)
 
 When submitting examples, please:

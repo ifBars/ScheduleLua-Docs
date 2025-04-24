@@ -25,8 +25,8 @@ module.exports = {
       { 
         text: 'Development', 
         items: [
-          { text: 'GitHub Repository', link: 'https://github.com/ifBars/ScheduleLua' },
-          { text: 'Issue Tracker', link: 'https://github.com/ifBars/ScheduleLua/issues' },
+          { text: 'GitHub Repository', link: 'https://github.com/ScheduleLua/ScheduleLua-Framework' },
+          { text: 'Issue Tracker', link: 'https://github.com/ScheduleLua/ScheduleLua-Framework/issues' },
           { text: 'Discord Community', link: 'https://discord.gg/Ab8snpEFDn' },
         ]
       }
@@ -215,7 +215,7 @@ module.exports = {
     
     // Social links
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/ifBars/ScheduleLua' },
+      { icon: 'github', link: 'https://github.com/ScheduleLua/ScheduleLua-Framework' },
       { icon: 'discord', link: 'https://discord.gg/Ab8snpEFDn' }
     ],
     
@@ -236,7 +236,7 @@ module.exports = {
     },
     
     editLink: {
-      pattern: 'https://github.com/ifBars/ScheduleLua-Docs/edit/dev/docs/:path',
+      pattern: 'https://github.com/ScheduleLua/ScheduleLua-Docs/edit/dev/docs/:path',
       text: 'Help improve this page'
     },
     

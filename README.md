@@ -1,14 +1,14 @@
 # ScheduleLua Documentation
 
-[![Build & Deploy VitePress Site](https://github.com/ifBars/ScheduleLua-Docs/actions/workflows/deploy.yml/badge.svg)](https://github.com/ifBars/ScheduleLua-Docs/actions/workflows/deploy.yml)
+[![Build & Deploy VitePress Site](https://github.com/ScheduleLua/ScheduleLua-Docs/actions/workflows/deploy.yml/badge.svg)](https://github.com/ScheduleLua/ScheduleLua-Docs/actions/workflows/deploy.yml)
 [![Built with VitePress](https://img.shields.io/badge/Built%20with-VitePress-42b883)](https://vitepress.dev/)
 [![Documentation Status](https://img.shields.io/badge/Documentation-Beta-orange)](https://ifbars.github.io/ScheduleLua-Docs/guide/development-status.html)
 
-This repository contains the official documentation for [ScheduleLua](https://github.com/ifBars/ScheduleLua), a Lua scripting API for Schedule 1 that allows you to create mods and enhance your gameplay experience.
+This repository contains the official documentation for [ScheduleLua](https://github.com/ScheduleLua/ScheduleLua), a Lua scripting API for Schedule 1 that allows you to create mods and enhance your gameplay experience.
 
 ## 🚀 Live Documentation
 
-Visit the live documentation at [https://ifbars.github.io/ScheduleLua-Docs/](https://ifbars.github.io/ScheduleLua-Docs/)
+Visit the live documentation at [https://ifbars.github.io/ScheduleLua-Docs/](https://schedulelua.github.io/ScheduleLua-Docs/)
 
 ## 🛠️ Development Status
 
@@ -38,7 +38,7 @@ npm run docs:dev
 
 Contributions to improve the documentation are welcome! Please follow these steps:
 
-1. **Fork the repository**: Click the "Fork" button at the top right of [this repository](https://github.com/ifBars/ScheduleLua-Docs).
+1. **Fork the repository**: Click the "Fork" button at the top right of [this repository](https://github.com/ScheduleLua/ScheduleLua-Docs).
 
 2. **Clone your fork**: 
    ```bash
@@ -83,7 +83,7 @@ Please ensure your contributions:
 
 ## 🔗 Related Links
 
-- [ScheduleLua GitHub Repository](https://github.com/ifBars/ScheduleLua)
+- [ScheduleLua GitHub Repository](https://github.com/ScheduleLua/ScheduleLua-Framework)
 - [Discord Community](https://discord.gg/Ab8snpEFDn)
 
 ## 📄 License

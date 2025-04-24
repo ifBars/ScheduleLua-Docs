@@ -83,7 +83,7 @@ If you see these messages, congratulations! The ScheduleLua beta is installed an
 
 If you encounter issues with the beta:
 
-1. Check the [Known Issues](https://github.com/ifBars/ScheduleLua/issues) on GitHub
+1. Check the [Known Issues](https://github.com/ScheduleLua/ScheduleLua-Framework/issues) on GitHub
 2. If your issue isn't listed, report it with:
    - Clear description of the problem
    - Steps to reproduce
@@ -117,7 +117,7 @@ If your scripts aren't loading:
 ## Getting Help
 
 If you encounter issues not covered in this guide:
-- Check the [GitHub repository issues](https://github.com/ifBars/ScheduleLua/issues) for similar problems
+- Check the [GitHub repository issues](https://github.com/ScheduleLua/ScheduleLua-Framework/issues) for similar problems
 - Join the [ScheduleLua Discord](https://discord.gg/Ab8snpEFDn)
 - Create a detailed bug report on [GitHub]() with logs and system information
 
