@@ -107,18 +107,14 @@ module.exports = {
           ]
         },
         {
-          text: 'Time API',
+          text: 'World API',
           collapsed: true,
           items: [
-            { text: 'Game Time', link: '/api/time/game-time' },
-            { text: 'Events', link: '/api/time/events' },
-          ]
-        },
-        {
-          text: 'Map API',
-          collapsed: true,
-          items: [
-            { text: 'Regions', link: '/api/map/' },
+            { text: 'Overview', link: '/api/world/' },
+            { text: 'Game Time', link: '/api/world/game-time' },
+            { text: 'Time Events', link: '/api/world/events' },
+            { text: 'Map', link: '/api/world/map' },
+            { text: 'Explosions', link: '/api/world/explosions' },
           ]
         },
         {
@@ -129,6 +125,7 @@ module.exports = {
             { text: 'Notifications', link: '/api/ui/notifications' },
             { text: 'Messages', link: '/api/ui/messages' },
             { text: 'Dialogs', link: '/api/ui/dialogs' },
+            { text: 'Storages', link: '/api/ui/storages' },
           ]
         },
         {

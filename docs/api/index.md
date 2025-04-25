@@ -14,15 +14,14 @@ The ScheduleLua API is being actively developed. Here's the current implementati
 |--------------|--------|
 | Core API | ✅ Stable |
 | Player API | 🔄 Partial |
-| Time API | 🔄 Partial |
+| World API | 🔄 Partial |
 | NPC API | 🔄 Partial |
-| Map API | 🔄 Partial |
 | Helper Functions | 🔄 Partial |
 | Windows API | 🔄 Partial |
 | UI API | 🔄 Partial |
 | Registry API | 🔄 Partial |
 | Economy API | 🔄 Partial |
-| Law API | 📝 Planned |
+| Law API | 🔄 Partial |
 
 See the [Development Status](/guide/development-status) page for more detailed information.
 
@@ -37,11 +36,8 @@ Functions for interacting with the player character, including movement, invento
 ### [NPC API](./npc/) - 🔄 Partial
 Tools for finding, managing, and interacting with NPCs in the game world.
 
-### [Time API](./time/game-time.md) - 🔄 Partial
-Functions for getting and manipulating game time, as well as time-based events.
-
-### [Map API](./map/) - 🔄 Partial
-Functions for working with map regions and world interaction.
+### [World API](./world/) - 🔄 Partial
+Functions for interacting with the game world, including time, map regions, and explosions.
 
 ### [Helper Functions](./helper/) - 🔄 Partial
 Utility functions such as Vector3 operations to simplify common tasks.
@@ -58,7 +54,7 @@ Store and retrieve data persistent across script executions and game sessions.
 ### [Economy API](./economy/) - 🔄 Partial
 Interact with the game's economy system, including player money and transactions.
 
-### [Law API](./law/) - 📝 Planned
+### [Law API](./law/) - 🔄 Partial
 Interact with the game's law system, including curfew management.
 
 ## Function Naming Conventions

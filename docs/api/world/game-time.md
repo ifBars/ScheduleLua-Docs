@@ -1,4 +1,4 @@
-# Game Time API
+# World Game Time API
 
 The Game Time API provides functions for interacting with Schedule 1's time system. This includes getting the current game time, day, and checking for specific time conditions.
 
@@ -168,41 +168,7 @@ end
 ### Notes
 
 - Night time is typically defined as between 20:00 (8:00 PM) and 6:00 (6:00 AM)
-- The exact night time hours may vary based on game settings
-
-## Time-Related Events
-
-The Time API includes event hooks that are called when time-related changes occur:
-
-### OnTimeChanged
-
-```lua
-function OnTimeChanged(time)
-    -- 'time' is the new game time value
-    Log("Time changed to: " .. FormatGameTime(time))
-    
-    -- Perform actions at specific times
-    if time == 8 then
-        Log("It's 8:00 AM. Shops are opening!")
-    elseif time == 20 then
-        Log("It's 8:00 PM. Shops are closing!")
-    end
-end
-```
-
-### OnDayChanged
-
-```lua
-function OnDayChanged(day)
-    -- 'day' is the new day name as a string
-    Log("Day changed to: " .. day)
-    
-    -- Perform actions on specific days
-    if day == "Monday" then
-        Log("It's Monday! Weekly reset happens today.")
-    end
-end
-```
+- The exact night time hours may vary
 
 ## Time Utility Functions
 
@@ -249,18 +215,3 @@ if IsTimeInRange(currentTime, 22, 6) then
     Log("It's overnight hours (10 PM - 6 AM)")
 end
 ```
-
-## Best Practices
-
-1. **Cache Time Values**: When you need the same time value multiple times, store it in a variable
-2. **Format Times for Display**: Always use `FormatGameTime()` when showing times to players
-3. **Handle Day/Night Transitions**: Use the `OnTimeChanged` hook to detect day/night transitions
-4. **Schedule Events**: Set up time-triggered events in the `OnTimeChanged` hook
-5. **Think in 24-Hour Format**: The game uses 24-hour time internally (0-23)
-6. **Check For Time Ranges**: Consider whether you need to check for times that span midnight
-
-## Related Functions
-
-- `OnTimeChanged(time)` - Lifecycle hook called when game time changes
-- `OnDayChanged(day)` - Lifecycle hook called when game day changes
-- All functions in the Time API are closely related 

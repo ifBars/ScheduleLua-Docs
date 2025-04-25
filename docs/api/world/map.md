@@ -1,10 +1,16 @@
-# Map API
+# World Map API
 
-The Map API provides functions for interacting with the game world and regions.
+The Map API provides access to the game's world map, allowing mods to query and interact with regions, locations, and the overall game world.
 
 <div class="custom-block warning">
   <p><strong>Implementation Status:</strong> Partially implemented. Basic region functions are available.</p>
 </div>
+
+## Features
+
+- Access to game regions and locations
+- Check if player or NPCs are in specific regions
+- Get information about map areas and boundaries
 
 ## Region Functions
 
@@ -48,59 +54,7 @@ end)
 - This function returns all regions defined in the game, even if they are currently empty
 - Useful for validating region names for other region-related functions
 
-## Future Map Functions
-
-The following map and world interaction functions are planned for future updates:
-
-### CreateCustomRegion
-
-**Status:** 📝 Planned
-
-**Signature:** `boolean CreateCustomRegion(string regionName, table boundingBox)`
-
-**Description:** Creates a custom region with the specified name and boundaries.
-
-### ModifyRegionProperties
-
-**Status:** 📝 Planned
-
-**Signature:** `boolean ModifyRegionProperties(string regionName, table properties)`
-
-**Description:** Modifies properties of an existing region.
-
-### GetRegionWeather
-
-**Status:** 📝 Planned
-
-**Signature:** `string GetRegionWeather(string regionName)`
-
-**Description:** Gets the current weather in the specified region.
-
-### GetRegionTime
-
-**Status:** 📝 Planned
-
-**Signature:** `number GetRegionTime(string regionName)`
-
-**Description:** Gets the current time in the specified region (useful for regions with time offsets).
-
-### SpawnObject
-
-**Status:** 📝 Planned
-
-**Signature:** `userdata SpawnObject(string objectName, number x, number y, number z)`
-
-**Description:** Spawns a game object at the specified coordinates.
-
-### RemoveObject
-
-**Status:** 📝 Planned
-
-**Signature:** `boolean RemoveObject(userdata object)`
-
-**Description:** Removes a game object from the world.
-
-## Practical Examples
+## Examples
 
 ### Creating a Region Map
 
@@ -145,7 +99,9 @@ function CreateRegionMap()
 end
 
 -- Usage
-RegisterCommand("map", "Creates a map of regions and NPCs", "map", function(args)
-    CreateRegionMap()
-end)
-``` 
+function OnConsoleReady()
+    RegisterCommand("map", "Creates a map of regions and NPCs", "map", function(args)
+        CreateRegionMap()
+    end)
+end
+```
