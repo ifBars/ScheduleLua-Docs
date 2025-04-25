@@ -153,7 +153,7 @@ module.exports = {
           ]
         },
         {
-          text: 'Economy API (Partial)',
+          text: 'Economy API',
           collapsed: true,
           items: [
             { text: 'Overview', link: '/api/economy/' },
@@ -161,7 +161,7 @@ module.exports = {
           ]
         },
         {
-          text: 'Law API (Partial)',
+          text: 'Law API',
           collapsed: true,
           items: [
             { text: 'Overview', link: '/api/law/' },
