@@ -80,47 +80,121 @@ ScheduleLua is an in-development modding framework that aims to bridge Schedule 
 ## Example Script
 
 ```lua
--- A simple script showcasing currently working functionality
+local originalLimit = 10000.0
+local presetLimits = {
+    ["Default"] = 10000.0,
+    ["Medium"] = 25000.0, 
+    ["High"] = 50000.0,
+    ["Very High"] = 100000.0,
+    ["Unlimited"] = 999999.0
+}
 
+-- Initialize function called when script is first loaded
 function Initialize()
-    Log("Basic Example Script initialized!")
-    return true
+    Log("ATM Limit Example script initialized!")
 end
 
+-- Called when the console is fully loaded and ready
 function OnConsoleReady()
-    -- Basic command registration works
-    RegisterCommand("hello", "Displays a greeting", "hello [name]", function(args)
-        local name = args[2] or "World"
-        Log("Hello, " .. name .. "!")
-    end)
+    -- Register console commands for ATM limits
+    RegisterCommand(
+        "atmlimit",
+        "Shows or sets the ATM deposit limit using Harmony patching",
+        "atmlimit [amount/preset]",
+        function(args)
+            if #args == 0 then
+                local currentLimit = GetATMDepositLimit()
+                Log("Current ATM deposit limit: " .. FormatMoney(currentLimit))
+                Log("Available presets: default, medium, high, veryhigh, unlimited")
+                for name, limit in pairs(presetLimits) do
+                    Log("  - " .. name .. ": " .. FormatMoney(limit))
+                end
+            else
+                local newLimit
+                local presetName = string.lower(args[1])
+                
+                if presetName == "default" then
+                    newLimit = presetLimits["Default"]
+                elseif presetName == "medium" then
+                    newLimit = presetLimits["Medium"]
+                elseif presetName == "high" then
+                    newLimit = presetLimits["High"]
+                elseif presetName == "veryhigh" then
+                    newLimit = presetLimits["Very High"]
+                elseif presetName == "unlimited" then
+                    newLimit = presetLimits["Unlimited"]
+                else
+                    newLimit = tonumber(args[1])
+                    if not newLimit then
+                        LogError("Invalid limit. Please specify a number or preset (default, medium, high, veryhigh, unlimited)")
+                        return
+                    end
+                end
+                
+                if SetATMDepositLimit(newLimit) then
+                    Log("Successfully applied patches for ATM deposit limit: " .. FormatMoney(newLimit))
+                    Log("Try visiting an ATM to see the new limit in action.")
+                    Log("Note: This change affects all ATMs in the game!")
+                else
+                    LogError("Failed to apply patches for ATM deposit limit")
+                end
+            end
+        end
+    )
+    
+    RegisterCommand(
+        "resetatmlimit",
+        "Resets the ATM deposit limit to the default value",
+        "resetatmlimit",
+        function(args)
+            if SetATMDepositLimit(originalLimit) then
+                Log("Applied Harmony patches to reset ATM deposit limit to default: " .. FormatMoney(originalLimit))
+            else
+                LogError("Failed to reset ATM deposit limit")
+            end
+        end
+    )
+    
+    RegisterCommand(
+        "findatms",
+        "Shows information about ATMs in the game world",
+        "findatms",
+        function(args)
+            Log("Checking for ATM objects in the game...")
+            local currentLimit = GetATMDepositLimit()
+            Log("Current ATM deposit limit: " .. FormatMoney(currentLimit))
+            Log("ATM patching status: Active")
+            Log("Note: Changes made via the atmlimit command will apply to ALL ATMs in the game!")
+            Log("Use 'atmlimit' command to change the limit value")
+        end
+    )
+    
+    Log("ATM Limit commands registered: 'atmlimit', 'resetatmlimit', 'findatms'")
 end
 
+-- Called when the player is fully loaded and ready
 function OnPlayerReady()
-    -- Basic player data access is available
-    local position = GetPlayerPosition()
+    Log("ATM Limit Example: Player is ready!")
     
-    Log("Player Information (Available in current beta):")
-    Log("Position: " .. position.x .. ", " .. position.y .. ", " .. position.z)
+    originalLimit = GetATMDepositLimit()
+    Log("Current ATM deposit limit: " .. FormatMoney(originalLimit))
+    Log("Available ATM limit presets:")
+    for name, limit in pairs(presetLimits) do
+        Log("  - " .. name .. ": " .. FormatMoney(limit))
+    end
     
-    -- Note: Some player properties might not be functional yet
+    Log("Use the 'atmlimit' command to view or change the limit.")
 end
 
+-- Cleanup function called when script is unloaded
 function Shutdown()
-    UnregisterCommand("hello")
-    Log("Basic Example Script shutdown")
+    UnregisterCommand("atmlimit")
+    UnregisterCommand("resetatmlimit")
+    UnregisterCommand("findatms")
+    
+    Log("ATM Limit Example script shutdown, all commands unregistered")
 end
 ```
-
-## New Mod System
-
-ScheduleLua now features a modular mod system that allows you to:
-
-- Create folder-based mods with a manifest file
-- Define dependencies between mods
-- Export and import functions between mods
-- Organize your code across multiple files
-
-Learn more in the [Mod System Guide](/guide/mod-system).
 
 ## Join the Community
 

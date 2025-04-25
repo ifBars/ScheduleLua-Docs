@@ -253,24 +253,23 @@ const copyToClipboard = (text) => {
 
 ```lua
 -- Check if player has an item
-if HasItem("health_kit") then
-  Log("Player has a health kit")
+if HasItem("acid") then
+  Log("Player has acid")
   
   -- Get the quantity
-  local quantity = GetItemQuantity("health_kit")
-  Log("Player has " .. quantity .. " health kits")
+  local quantity = GetItemQuantity("acid")
+  Log("Player has " .. quantity .. " acid")
   
-  -- Use the item
-  if RemoveItem("health_kit", 1) then
-    Log("Used a health kit")
-    -- Add health to player or other effects
+  -- Remove the item
+  if RemoveItem("acid", 1) then
+    Log("Removed 1 acid")
   end
 end
 
 -- Add an item to player inventory
-if AddItem("food_sandwich", 1) then
-  Log("Added a sandwich to inventory")
-  ShowNotification("You got a sandwich!")
+if AddItem("iodine", 1) then
+  Log("Added 1 iodine to inventory")
+  ShowNotification("You got 1 iodine!")
 end
 ```
 

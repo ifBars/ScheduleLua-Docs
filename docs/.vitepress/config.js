@@ -28,6 +28,7 @@ module.exports = {
           { text: 'GitHub Repository', link: 'https://github.com/ScheduleLua/ScheduleLua-Framework' },
           { text: 'Issue Tracker', link: 'https://github.com/ScheduleLua/ScheduleLua-Framework/issues' },
           { text: 'Discord Community', link: 'https://discord.gg/Ab8snpEFDn' },
+          { text: 'VSCode Extension', link: 'https://github.com/ScheduleLua/ScheduleLua-Annotations/releases/tag/v1.0.3' },
         ]
       }
     ],
