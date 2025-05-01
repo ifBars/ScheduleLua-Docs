@@ -2,8 +2,8 @@
 
 The Notification system provides functions for displaying persistent notifications in Schedule 1's UI. Unlike temporary messages, notifications remain visible until dismissed or replaced.
 
-<div class="custom-block warning">
-  <p><strong>Implementation Status:</strong> Fully implemented. All notification functions are available.</p>
+<div class="custom-block info">
+  <p><strong>Notification Timeouts:</strong> By default, all notifications automatically close after 5 seconds. Use the timeout-specific methods to override this behavior.</p>
 </div>
 
 ## Notification Functions
@@ -53,9 +53,9 @@ end
 
 ### Notes
 
-- Notifications remain visible until dismissed by the player
+- Notifications automatically close after 5 seconds by default
 - Keep notification content concise and relevant
-- For temporary notifications, use `ShowNotificationWithTimeout`
+- For custom timeout durations, use `ShowNotificationWithTimeout`
 
 ### ShowNotificationWithIcon
 
@@ -101,6 +101,7 @@ end
 
 ### Notes
 
+- Notifications automatically close after 5 seconds by default
 - The icon path can be relative to the script directory or an absolute path
 - Supported image formats include PNG, JPG, and other common formats
 - If the icon cannot be loaded, the notification will display without an icon
@@ -146,6 +147,7 @@ end
 ### Notes
 
 - Useful for notifications that are only relevant for a short time
+- Use this method to override the default 5-second timeout
 - The timeout is approximate and may vary slightly
 - For more complex timed notifications with icons, use `ShowNotificationWithIconAndTimeout`
 
@@ -201,8 +203,8 @@ end
 
 ### Notes
 
-- Combines the visual appeal of icons with the temporary nature of timed notifications
-- Perfect for important but transient information
+- Combines the visual appeal of icons with the ability to customize notification duration
+- Use this method to override the default 5-second timeout
 - The icon path can be relative to the script directory or an absolute path
 - If the icon cannot be loaded, the notification will display without an icon
 - The timeout is approximate and may vary slightly
@@ -212,37 +214,23 @@ end
 ### General Guidelines
 
 - **Keep it concise**: Notifications should be brief and to the point
-- **Use appropriate timeouts**: More important information should stay longer
 - **Don't overuse**: Too many notifications can annoy players
 - **Icons matter**: Use icons that clearly relate to the notification content
 - **Prioritize**: Only show notifications for important information
 
 ### Icon Guidelines
 
-- **Size**: Icons should be square and ideally 64x64 pixels
-- **Format**: PNG format with transparency works best
-- **Clarity**: Icons should be clear even at small sizes
-- **Consistency**: Use a consistent style for your icons
-- **Contrast**: Ensure icons have good contrast with the notification background
-
-### Timeout Guidelines
-
-- **Critical information**: 8-10 seconds
-- **Important information**: 5-7 seconds
-- **Normal notifications**: 3-4 seconds
-- **Minor information**: 1-2 seconds
+- **Size**: Icons should be square and ideally 1024x1024 pixels or smaller
+- **Format**: PNG format
 
 ```lua
 -- Example of good notification practice
 function MonitorPlayerStatus()
     -- Check player conditions
     local health = GetPlayerHealth()
-    local maxHealth = GetPlayerMaxHealth()
-    local healthPercent = (health / maxHealth) * 100
-    
-    local radiation = GetPlayerRadiation()
-    local hunger = GetPlayerHunger()
-    local thirst = GetPlayerThirst()
+    local energy = GetPlayerEnergy()
+    local healthPercent = (health / 100) * 100
+    local energyPercent = (energy / 100) * 100
     
     -- Determine most critical status
     local criticalStatus = nil
@@ -253,19 +241,9 @@ function MonitorPlayerStatus()
         criticalValue = healthPercent
     end
     
-    if radiation > 75 and (not criticalStatus or radiation > criticalValue) then
-        criticalStatus = "Radiation"
-        criticalValue = radiation
-    end
-    
-    if hunger > 80 and (not criticalStatus or hunger > criticalValue) then
-        criticalStatus = "Hunger"
-        criticalValue = hunger
-    end
-    
-    if thirst > 85 and (not criticalStatus or thirst > criticalValue) then
-        criticalStatus = "Thirst"
-        criticalValue = thirst
+    if energyPercent < 25 then
+        criticalStatus = "Energy"
+        criticalValue = energyPercent
     end
     
     -- Update or clear status notification
@@ -276,22 +254,10 @@ function MonitorPlayerStatus()
         
         if criticalStatus == "Health" then
             message = "Health critical at " .. math.floor(healthPercent) .. "%. Find medical supplies."
-        elseif criticalStatus == "Radiation" then
-            message = "Radiation levels at " .. radiation .. "%. Take Rad-Away immediately."
-        elseif criticalStatus == "Hunger" then
-            message = "Extreme hunger. Find food soon or face health penalties."
-        elseif criticalStatus == "Thirst" then
-            message = "Severe dehydration. Drink water immediately."
+        elseif criticalStatus == "Energy" then
+            message = "Energy critical at " .. math.floor(energyPercent) .. "%. Find a safe place to rest."
         end
         
-        -- Show or update notification
-        if NotificationManager.Exists("player_status") then
-            NotificationManager.Update("player_status", title, message, type)
-        else
-            NotificationManager.Show("player_status", title, message, type)
-        end
-    else
-        -- If no critical status, dismiss any existing status notification
-        NotificationManager.Dismiss("player_status")
+        ShowNotification(title, message)
     end
 } 
