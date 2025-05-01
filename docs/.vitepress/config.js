@@ -147,10 +147,10 @@ module.exports = {
           ]
         },
         {
-          text: 'Windows API',
+          text: 'Unity API',
           collapsed: true,
           items: [
-            { text: 'Key Input', link: '/api/windows/' },
+            { text: 'Key Input', link: '/api/unity/' },
           ]
         },
         {

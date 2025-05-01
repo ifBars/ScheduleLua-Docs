@@ -1,10 +1,6 @@
-# Windows API
+# Unity Api
 
-The Windows API provides functionality for interacting with the Windows operating system through low-level inputs. This allows scripts to detect key presses and key states on Windows platforms.
-
-<div class="custom-block warning">
-  <p><strong>Implementation Status:</strong> Partially implemented. Basic key input functions are available.</p>
-</div>
+The Unity API provides functionality for interacting with the Unity game engine. This allows scripts to detect key presses.
 
 ## Key Input Functions
 
@@ -69,47 +65,6 @@ function Update()
 end
 ```
 
-## Key Names
-
-The API accepts key names based on Unity's KeyCode enum values, which are internally mapped to Windows virtual key codes. Common keys include:
-
-### Movement Keys
-- `W`, `A`, `S`, `D` - Standard movement keys
-- `UpArrow`, `LeftArrow`, `DownArrow`, `RightArrow` - Arrow keys
-
-### Modifier Keys
-- `LeftShift`, `RightShift` - Shift keys
-- `LeftControl`, `RightControl` - Control keys
-- `LeftAlt`, `RightAlt` - Alt keys
-
-### Function Keys
-- `F1`, `F2`, `F3`, etc. - Function keys
-
-### Other Common Keys
-- `Space` - Space bar
-- `Return` or `Enter` - Enter key
-- `Escape` - Escape key
-- `Tab` - Tab key
-- `Backspace` - Backspace key
-
-## Technical Implementation
-
-The Windows API functions work by:
-1. Converting the provided Unity KeyCode name string (e.g., "W", "Space") to a Unity KeyCode enum value
-2. Internally mapping this to a Windows virtual key code
-3. Using the Windows `GetAsyncKeyState()` function to detect key states
-
-<div class="custom-block warning">
-  <p><strong>Note:</strong> Due to this conversion process, there may be some rare keys where the mapping between Unity KeyCode and Windows virtual key codes is imperfect. The most common keys used in Schedule 1 should be properly supported. Better support will come in future updates as feedback is received.</p>
-</div>
-
-## Notes
-
-- The current implementation uses GetAsyncKeyState internally
-- Key names must match the Unity KeyCode enum values exactly (case-sensitive)
-- `IsKeyDown` checks if the key is currently held down
-- `IsKeyPressed` detects a single press (more useful for toggle actions)
-- Be cautious about polling keys in every Update as it can be performance-intensive
 
 ## Example Script
 
