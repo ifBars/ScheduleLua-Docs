@@ -42,8 +42,8 @@ Functions for interacting with the game world, including time, map regions, and 
 ### [Helper Functions](./helper/) - 🔄 Partial
 Utility functions such as Vector3 operations to simplify common tasks.
 
-### [Windows API](./windows/) - 🔄 Partial
-Functions for Windows-specific features like key detection and input handling.
+### [Unity API](./unity/) - 🔄 Partial
+Functions for Unity-specific features like key input detection.
 
 ### [UI API](./ui/) - 🔄 Experimental
 Create notifications and basic UI elements. Advanced features are still in development.
