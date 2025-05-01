@@ -40,8 +40,6 @@ Log("Position: X=" .. position.x .. ", Y=" .. position.y .. ", Z=" .. position.z
 TeleportPlayer(position.x, position.y, position.z)
 ```
 
-### Notes
-
 - Vector3 objects are used to represent positions and directions in 3D space
 - The returned object is a standard Lua table with x, y, z properties
 
@@ -84,47 +82,5 @@ if playerPos and npcPos then
 end
 ```
 
-### Notes
-
 - This calculates the straight-line distance (Euclidean distance)
 - Useful for proximity checks and distance-based behaviors
-
-## Future Helper Functions
-
-Additional helper functions are planned for future updates, including:
-
-### String Manipulation
-
-**Status:** 📝 Planned
-
-String manipulation utilities for common text operations.
-
-### Table Operations
-
-**Status:** 📝 Planned
-
-Functions for working with Lua tables more efficiently.
-
-### Mathematical Utilities
-
-**Status:** 📝 Planned
-
-Extended math functions beyond what's available in Lua's standard math library.
-
-### Time Utilities
-
-**Status:** 📝 Planned
-
-Helper functions for time calculations and conversions.
-
-### Path Finding
-
-**Status:** 📝 Planned
-
-Utilities to help with navigation and path finding in the game world.
-
-### Data Conversion
-
-**Status:** 📝 Planned
-
-Functions to convert between different data formats and types. 
