@@ -4,8 +4,6 @@ These functions allow you to access and modify the player's status attributes li
 
 ## GetPlayerState
 
-**Status:** ✅ Stable
-
 **Signature:** `table GetPlayerState()`
 
 **Description:** Gets a comprehensive table containing information about the player's current state.
@@ -60,8 +58,6 @@ end
 
 ## GetPlayerHealth
 
-**Status:** ✅ Stable
-
 **Signature:** `number GetPlayerHealth()`
 
 **Description:** Gets the player's current health value.
@@ -87,8 +83,6 @@ end
 ```
 
 ## SetPlayerHealth
-
-**Status:** ✅ Stable
 
 **Signature:** `void SetPlayerHealth(number amount)`
 
@@ -127,8 +121,6 @@ end
 
 ## GetPlayerEnergy
 
-**Status:** ✅ Stable
-
 **Signature:** `number GetPlayerEnergy()`
 
 **Description:** Gets the player's current energy value.
@@ -154,8 +146,6 @@ end
 ```
 
 ## SetPlayerEnergy
-
-**Status:** ✅ Stable
 
 **Signature:** `void SetPlayerEnergy(number amount)`
 
@@ -191,8 +181,6 @@ end
 
 ## GetPlayerMoney
 
-**Status:** ✅ Stable
-
 **Signature:** `number GetPlayerMoney()`
 
 **Description:** Gets the player's current money amount.
@@ -220,8 +208,6 @@ end
 ```
 
 ## AddPlayerMoney
-
-**Status:** ✅ Stable
 
 **Signature:** `void AddPlayerMoney(number amount)`
 

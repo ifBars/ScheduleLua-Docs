@@ -4,8 +4,6 @@ These functions allow you to access and manipulate the player's position and mov
 
 ## GetPlayerMovementState
 
-**Status:** ✅ Stable
-
 **Signature:** `string GetPlayerMovementState()`
 
 **Description:** Gets the current movement state of the player character.
@@ -47,8 +45,6 @@ end
 
 ## GetPlayerPosition
 
-**Status:** ✅ Stable
-
 **Signature:** `Vector3 GetPlayerPosition()`
 
 **Description:** Gets the current position of the player in the world.
@@ -85,8 +81,6 @@ end
 ```
 
 ## SetPlayerPosition
-
-**Status:** ✅ Stable
 
 **Signature:** `void SetPlayerPosition(number x, number y, number z)`
 
@@ -132,8 +126,6 @@ end
 
 ## TeleportPlayer
 
-**Status:** ✅ Stable
-
 **Signature:** `void TeleportPlayer(number x, number y, number z)`
 
 **Description:** Teleports the player to the specified coordinates, handling proper physics and collision detection.
@@ -174,8 +166,6 @@ end
 
 ## GetPlayerRegion
 
-**Status:** ✅ Stable
-
 **Signature:** `string GetPlayerRegion()`
 
 **Description:** Gets the name of the region or area that the player is currently in.
@@ -208,8 +198,6 @@ end
 ```
 
 ## IsPlayerInRegion
-
-**Status:** ✅ Stable
 
 **Signature:** `boolean IsPlayerInRegion(string regionName)`
 
@@ -245,8 +233,6 @@ end
 - Useful for area-specific gameplay logic 
 
 ## GetPlayerMovementSpeed
-
-**Status:** ✅ Stable
 
 **Signature:** `number GetPlayerMovementSpeed()`
 
@@ -288,8 +274,6 @@ end
 - For reliable initialization, check speed after player is loaded using the `OnPlayerReady()` callback
 
 ## SetPlayerMovementSpeed
-
-**Status:** ✅ Stable
 
 **Signature:** `boolean SetPlayerMovementSpeed(number speedMultiplier)`
 
